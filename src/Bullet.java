@@ -20,7 +20,7 @@ public class Bullet {
         this.dx = dx;
         this.dy = dy;
     }
-    
+
     public void move() {
         x += dx * speed;
         y += dy * speed;
