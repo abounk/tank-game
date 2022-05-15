@@ -1,10 +1,18 @@
 public class MovingObj extends WorldObj{
     private Direction direction;
+    private int speed;
 
     private boolean isMoving = false;
 
     public MovingObj (int x, int y) {
         super(x, y);
+        this.speed = 1;
+        this.direction = Direction.UP;
+    }
+
+    public MovingObj (int x, int y, int speed) {
+        super(x, y);
+        this.speed = speed;
         this.direction = Direction.UP;
     }
 
@@ -21,8 +29,8 @@ public class MovingObj extends WorldObj{
         if (!isMoving) {
             return;
         }
-        int x = this.getX() + direction.getX();
-        int y = this.getY() + direction.getY();
+        int x = this.getX() + (direction.getX() * speed);
+        int y = this.getY() + (direction.getY() * speed);
 
         if (
                 x < 0 ||

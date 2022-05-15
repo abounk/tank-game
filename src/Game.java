@@ -79,7 +79,6 @@ public class Game extends JFrame {
 
         public void paintTank(Graphics g) {
             Tank tank = world.getTank();
-            tank.setSize(PIXEL_SIZE * 3, PIXEL_SIZE * 3);
             int nx = tank.getX();
             int ny = tank.getY();
 //            System.out.println("x: " + nx + " y: " + ny);
