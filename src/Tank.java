@@ -1,22 +1,15 @@
-public class Tank extends WorldObj{
-    private Direction direction;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-    private Tank(int x, int y) {
+public class Tank extends MovingObj{
+
+    public Tank(int x, int y) {
         super(x, y);
-        direction = Direction.UP;
     }
 
-    public void move() {
-
+    @Override
+    public void animate() {
+        super.animate();
     }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
 
 }
