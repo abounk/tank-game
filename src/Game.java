@@ -56,7 +56,6 @@ public class Game extends JFrame {
                     KeyEvent.VK_D
             ));
 
-            imgTank = new ImageIcon("img/greenTank_right.png").getImage();
         }
 
         @Override
@@ -65,15 +64,26 @@ public class Game extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
 
+            turnTank();
             paintTank(g);
+        }
+
+        public void turnTank() {
+            switch (world.getTank().getDirection()) {
+                case UP -> imgTank = new ImageIcon("img/greenTank_up.png").getImage();
+                case DOWN -> imgTank = new ImageIcon("img/greenTank_down.png").getImage();
+                case LEFT -> imgTank = new ImageIcon("img/greenTank_left.png").getImage();
+                case RIGHT -> imgTank = new ImageIcon("img/greenTank_right.png").getImage();
+            }
         }
 
         public void paintTank(Graphics g) {
             Tank tank = world.getTank();
+            tank.setSize(PIXEL_SIZE * 3, PIXEL_SIZE * 3);
             int nx = tank.getX();
             int ny = tank.getY();
-            System.out.println("x: " + nx + " y: " + ny);
-            g.drawImage(imgTank, nx, ny, PIXEL_SIZE * 3, PIXEL_SIZE * 3, null, null);
+//            System.out.println("x: " + nx + " y: " + ny);
+            g.drawImage(imgTank, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
     }
 

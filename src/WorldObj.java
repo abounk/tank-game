@@ -4,8 +4,8 @@ public class WorldObj {
     private int x;
     private int y;
 
-    private int width;
-    private int height;
+    private int width = Game.WorldPanel.PIXEL_SIZE;
+    private int height = Game.WorldPanel.PIXEL_SIZE;
 
 
     public WorldObj(int x, int y) {
@@ -25,6 +25,11 @@ public class WorldObj {
     }
 
     public void animate() {
+    }
+
+    public void setSize(int width, int height) {
+        this.width = width;
+        this.height = height;
     }
 
     public int getWidth() {

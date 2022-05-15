@@ -3,10 +3,14 @@ import java.awt.event.KeyEvent;
 
 public class KeyHandler extends KeyAdapter {
     private Tank tank;
+
     private int up;
     private int down;
     private int left;
     private int right;
+    private int shoot;
+
+    private int currentKey;
 
     public KeyHandler (Tank tank, int up, int down, int left, int right) {
         this.tank = tank;
@@ -31,10 +35,16 @@ public class KeyHandler extends KeyAdapter {
             tank.setDirection(Direction.RIGHT);
             tank.move();
         }
+        currentKey = e.getKeyCode();
         }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        tank.stop();
+        if ((e.getKeyCode() == up && currentKey == e.getKeyCode())
+                || (e.getKeyCode() == down && currentKey == e.getKeyCode())
+                || (e.getKeyCode() == left && currentKey == e.getKeyCode())
+                || (e.getKeyCode() == right && currentKey == e.getKeyCode())) {
+            tank.stop();
+        }
     }
 }
