@@ -4,6 +4,7 @@ import java.util.List;
 public class World {
     private int width;
     private int height;
+//    private List<Tank> tanks = new ArrayList<Tank>();
     private Tank tank;
     private Bullet bullet;
 
@@ -15,10 +16,11 @@ public class World {
     public World(int width, int height) {
         this.width = width;
         this.height = height;
-        this.map = new Map(50);
+        this.map = new Map();
         this.bricksList = new ArrayList<Brick>();
         this.steelList = new ArrayList<Steel>();
         this.bushList = new ArrayList<Bush>();
+        tank = new Tank(10, 10);
         addListObject();
     }
 
@@ -59,9 +61,11 @@ public class World {
 
     public List<Bush> getBushList() {
         return this.bushList;
+        // tank = new Tank(30, 30);
     }
 
     public void tick() {
+        tank.animate();
     }
 
     public Tank getTank() {

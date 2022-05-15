@@ -12,12 +12,15 @@ public class Game extends JFrame {
     private World world;
 
     public Game() {
-        world = new World(60, 40);
+        world = new World(30, 20);
         worldPanel = new WorldPanel();
         add(worldPanel);
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         worldPanel.requestFocus();
+        setTitle("Tank game");
+        setAlwaysOnTop(true);
+        setResizable(false);
     }
 
     public void start() {
@@ -27,10 +30,11 @@ public class Game extends JFrame {
                 while (true) {
                     world.tick();
                     try {
-                        sleep(1000);
+                        sleep(1000 / 300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    repaint();
                 }
             }
         };
@@ -38,7 +42,7 @@ public class Game extends JFrame {
     }
 
     class WorldPanel extends JPanel {
-        public static final int PIXEL_SIZE = 20;
+        public static final int PIXEL_SIZE = 40;
 
         private List<Brick> brickList;
         private List<Steel> steelList;
@@ -54,6 +58,7 @@ public class Game extends JFrame {
         //     imageSteel = new ImageIcon("imgs/steel.png").getImage();
         //     imageBush = new ImageIcon("imgs/bush.png").getImage();
         // }
+        private Image imgTank;
 
         WorldPanel() {
             setPreferredSize(new Dimension(
@@ -63,15 +68,35 @@ public class Game extends JFrame {
 
             imageBrick = new ImageIcon("imgs/brick.png").getImage();
             imageSteel = new ImageIcon("imgs/steel.png").getImage();
-            imageBush = new ImageIcon("imgs/bush.png").getImage();
+            imageBush = new ImageIcon("imgs/bush2.png").getImage();
+
+            // imgTank = new ImageIcon()
+
+            addKeyListener(new KeyHandler(
+                    world.getTank(),
+                    KeyEvent.VK_W,
+                    KeyEvent.VK_S,
+                    KeyEvent.VK_A,
+                    KeyEvent.VK_D
+            ));
 
         }
+
         @Override
         public void paint(Graphics g) {
             super.paint(g);
+
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
+
             paintBrick(g);
             paintSteel(g);
             paintBush(g);
+            // g.setColor(Color.BLACK);
+            // g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
+
+            turnTank();
+            paintTank(g);
         }
 
         public void paintBrick(Graphics g) {
@@ -99,6 +124,32 @@ public class Game extends JFrame {
                 int y = a.getY() * PIXEL_SIZE;
                 g.drawImage(imageBush, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
             }
+            // g.setColor(Color.BLACK);
+            // g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
+
+            // turnTank();
+            // paintTank(g);
+        }
+
+        public void turnTank() {
+            switch (world.getTank().getDirection()) {
+                case UP -> imgTank = new ImageIcon("img/greenTank_up.png").getImage();
+                case DOWN -> imgTank = new ImageIcon("img/greenTank_down.png").getImage();
+                case LEFT -> imgTank = new ImageIcon("img/greenTank_left.png").getImage();
+                case RIGHT -> imgTank = new ImageIcon("img/greenTank_right.png").getImage();
+            }
+        }
+
+        public void paintTank(Graphics g) {
+            Tank tank = world.getTank();
+            tank.setSize(PIXEL_SIZE * 2, PIXEL_SIZE * 2);
+            // int nx = tank.getX();
+            // int ny = tank.getY();
+            int nx = tank.getX() * PIXEL_SIZE;
+            int ny = tank.getY() * PIXEL_SIZE;
+//            System.out.println("x: " + nx + " y: " + ny);
+            g.drawImage(imgTank, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
+            // g.drawImage(imgTank, nx, ny, PIXEL_SIZE, PIXEL_SIZE, null, null);
         }
     }
 

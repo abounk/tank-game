@@ -1,22 +1,12 @@
-public class Tank extends WorldObj{
-    private Direction direction;
+public class Tank extends MovingObj{
 
-    private Tank(int x, int y) {
+    public Tank(int x, int y) {
         super(x, y);
-        direction = Direction.UP;
     }
 
-    public void move() {
-
+    @Override
+    public void animate() {
+        super.animate();
     }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
 
 }
