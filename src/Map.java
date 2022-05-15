@@ -3,9 +3,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Map {
-    public List<List<Integer>> listBrick = Arrays.asList();
-    public List<List<Integer>> listSteel = Arrays.asList();
-    public List<List<Integer>> listBush = Arrays.asList();
+    private List<List<Integer>> listBrick = Arrays.asList();
+    private List<List<Integer>> listSteel = Arrays.asList();
+    private List<List<Integer>> listBush = Arrays.asList();
     
 
     public Map(int size) {

@@ -69,6 +69,9 @@ public class Game extends JFrame {
         @Override
         public void paint(Graphics g) {
             super.paint(g);
+            paintBrick(g);
+            paintSteel(g);
+            paintBush(g);
         }
 
         public void paintBrick(Graphics g) {

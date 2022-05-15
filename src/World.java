@@ -15,6 +15,7 @@ public class World {
     public World(int width, int height) {
         this.width = width;
         this.height = height;
+        this.map = new Map(50);
         this.bricksList = new ArrayList<Brick>();
         this.steelList = new ArrayList<Steel>();
         this.bushList = new ArrayList<Bush>();
@@ -30,21 +31,21 @@ public class World {
     private void addBrickList() {
         List<List<Integer>> listBrick = this.map.getBrickList();
         for (List<Integer> a: listBrick) {
-            bricklist.add(new Brick(a.get(0)-1, a.get(1)-1));
+            bricksList.add(new Brick(a.get(0)-1, a.get(1)-1));
         }
     }
 
     private void addSteelList() {
         List<List<Integer>> listSteel = this.map.getSteelList();
         for (List<Integer> a: listSteel) {
-            steellist.add(new Steel(a.get(0)-1, a.get(1)-1));
+            steelList.add(new Steel(a.get(0)-1, a.get(1)-1));
         }
     }
 
     private void addBushList() {
         List<List<Integer>> listBush = this.map.getBushList();
         for (List<Integer> a: listBush) {
-            bushlist.add(new Bush(a.get(0)-1, a.get(1)-1));
+            bushList.add(new Bush(a.get(0)-1, a.get(1)-1));
         }
     }
 
