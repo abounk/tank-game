@@ -15,9 +15,6 @@ public class Tank extends MovingObj{
         super.animate();
         for (Bullet bullet : bullets) {
             bullet.animate();
-//            if (bullet.getIsBorderHit()) {
-//                bulletPool.returnBullet(bullet);
-//            }
         }
     }
 
@@ -42,11 +39,11 @@ public class Tank extends MovingObj{
                 y = this.getY() - 1;
                 break;
             case LEFT:
-                x = this.getX() + 1;
+                x = this.getX() - 1;
                 y = this.getY() + (this.getHeight() / 3);
                 break;
             case RIGHT:
-                x = this.getX() - 1;
+                x = this.getX() + 1;
                 y = this.getY() + (this.getHeight() / 3);
                 break;
             default:
@@ -68,5 +65,14 @@ public class Tank extends MovingObj{
 
     public List<Bullet> getBullets() {
         return bullets;
+    }
+
+    public void BulletHitBorder() {
+        for (Bullet bullet : bullets) {
+            if (bullet.getIsBorderHit()) {
+                bullets.remove(bullet);
+                bulletPool.returnBullet(bullet);
+            }
+        }
     }
 }

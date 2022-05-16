@@ -98,13 +98,13 @@ public class Game extends JFrame {
         }
 
         public void paintBullet(Graphics g) {
-            List<Bullet> bullets = world.getTank().getBullets();
-            for (Bullet bullet : bullets) {
+            for (Bullet bullet : world.getTank().getBullets()) {
                 turnBullet(bullet);
                 int bx = bullet.getX();
                 int by = bullet.getY();
                 g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
             }
+            world.getTank().BulletHitBorder();
         }
 
 

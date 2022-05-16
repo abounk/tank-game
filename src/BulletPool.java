@@ -5,11 +5,11 @@ import java.util.List;
 
 public class BulletPool {
     public static final int BULLET_SIZE = 3;
-    public static final int RELOAD_TIME = 2;
 
     private List<Bullet> bullets = new ArrayList<Bullet>();
     private List<Bullet> usedBullet = new ArrayList<Bullet>();
 
+    public static final int RELOAD_TIME = 200;
     private Thread reloadingThread;
     private boolean isReloading = false;
 
@@ -21,19 +21,22 @@ public class BulletPool {
 
     public Bullet requestBullet() {
         if (bullets.isEmpty()) {
-            throw new Error("No bullet left.");
+            reload();
         }
         Bullet bullet = bullets.remove(0);
         return bullet;
     }
 
     public void returnBullet(Bullet bullet) {
-        bullet.setPosition(-999, -999);
-        bullet.stop();
-        this.usedBullet.add(bullet);
+        if (bullet.getIsBorderHit()) {
+            usedBullet.add(bullet);
+        }
+    }
+
+    private void reload() {
         if (!isReloading) {
             isReloading = true;
-            this.reloadingThread = new Thread() {
+            reloadingThread = new Thread() {
                 public void run() {
                     while (isReloading) {
                         try {
@@ -41,11 +44,11 @@ public class BulletPool {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        Bullet bullet = usedBullet.remove(0);
+                        bullets.add(bullet);
                         if (usedBullet.isEmpty()) {
                             isReloading = false;
                         }
-                        Bullet bullet = usedBullet.remove(0);
-                        bullets.add(bullet);
                     }
                 }
             };
