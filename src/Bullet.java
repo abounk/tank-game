@@ -1,5 +1,5 @@
 public class Bullet extends MovingObj {
-    public static int SHELL_SPEED = 5;
+    public static int SHELL_SPEED = 3;
 
     public Bullet () {
         super(-1, -1, SHELL_SPEED);

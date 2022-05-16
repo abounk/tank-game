@@ -104,7 +104,6 @@ public class Game extends JFrame {
                 int by = bullet.getY();
                 g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
             }
-            world.getTank().BulletHitBorder();
         }
 
 

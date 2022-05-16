@@ -16,6 +16,7 @@ public class Tank extends MovingObj{
         for (Bullet bullet : bullets) {
             bullet.animate();
         }
+        cleanUpBullets();
     }
 
     public void shoot() {
@@ -67,12 +68,16 @@ public class Tank extends MovingObj{
         return bullets;
     }
 
-    public void BulletHitBorder() {
+    public void cleanUpBullets() {
+        List<Bullet> toRemove = new ArrayList<Bullet>();
         for (Bullet bullet : bullets) {
             if (bullet.getIsBorderHit()) {
-                bullets.remove(bullet);
-                bulletPool.returnBullet(bullet);
+                toRemove.add(bullet);
             }
+        }
+        for (Bullet bullet : toRemove) {
+            bullets.remove(bullet);
+            bulletPool.returnBullet(bullet);
         }
     }
 }
