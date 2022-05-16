@@ -91,12 +91,13 @@ public class Game extends JFrame {
 
             paintBrick(g);
             paintSteel(g);
-            paintBush(g);
+            // paintBush(g);
             // g.setColor(Color.BLACK);
             // g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
 
             turnTank();
             paintTank(g);
+            paintBush(g);
         }
 
         public void paintBrick(Graphics g) {
@@ -142,14 +143,10 @@ public class Game extends JFrame {
 
         public void paintTank(Graphics g) {
             Tank tank = world.getTank();
-            tank.setSize(PIXEL_SIZE * 2, PIXEL_SIZE * 2);
-            // int nx = tank.getX();
-            // int ny = tank.getY();
-            int nx = tank.getX() * PIXEL_SIZE;
-            int ny = tank.getY() * PIXEL_SIZE;
+            int nx = tank.getX();
+            int ny = tank.getY();
 //            System.out.println("x: " + nx + " y: " + ny);
             g.drawImage(imgTank, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
-            // g.drawImage(imgTank, nx, ny, PIXEL_SIZE, PIXEL_SIZE, null, null);
         }
     }
 
