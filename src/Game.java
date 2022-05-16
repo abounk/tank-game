@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
@@ -52,7 +50,8 @@ public class Game extends JFrame {
         private Image imageSteel;
         private Image imageBush;
 
-        private Image imgTank;
+        private Image imgTank1;
+        private Image imgTank2;
         private Image imgBullet;
 
         WorldPanel() {
@@ -65,12 +64,21 @@ public class Game extends JFrame {
             imageBush = new ImageIcon("imgs/bush2.png").getImage();
 
             addKeyListener(new KeyHandler(
-                    world.getTank(),
+                    world.getTank(0),
                     KeyEvent.VK_W,
                     KeyEvent.VK_S,
                     KeyEvent.VK_A,
                     KeyEvent.VK_D,
                     KeyEvent.VK_SPACE));
+
+            addKeyListener(new KeyHandler(
+                    world.getTank(1),
+                    KeyEvent.VK_I,
+                    KeyEvent.VK_K,
+                    KeyEvent.VK_J,
+                    KeyEvent.VK_L,
+                    KeyEvent.VK_P
+            ));
         }
 
         @Override
@@ -83,9 +91,14 @@ public class Game extends JFrame {
             paintBrick(g);
             paintSteel(g);
 
-            paintBullet(g);
-            turnTank();
-            paintTank(g);
+            paintBulletTank1(g);
+            paintBulletTank2(g);
+
+            turnTank1();
+            turnTank2();
+            paintTank1(g);
+            paintTank2(g);
+
             paintBush(g);
         }
 
@@ -116,12 +129,21 @@ public class Game extends JFrame {
             }
         }
 
-        public void turnTank() {
-            switch (world.getTank().getDirection()) {
-                case UP -> imgTank = new ImageIcon("img/greenTank_up.png").getImage();
-                case DOWN -> imgTank = new ImageIcon("img/greenTank_down.png").getImage();
-                case LEFT -> imgTank = new ImageIcon("img/greenTank_left.png").getImage();
-                case RIGHT -> imgTank = new ImageIcon("img/greenTank_right.png").getImage();
+        public void turnTank1() {
+            switch (world.getTank(0).getDirection()) {
+                case UP -> imgTank1 = new ImageIcon("img/greenTank_up.png").getImage();
+                case DOWN -> imgTank1 = new ImageIcon("img/greenTank_down.png").getImage();
+                case LEFT -> imgTank1 = new ImageIcon("img/greenTank_left.png").getImage();
+                case RIGHT -> imgTank1 = new ImageIcon("img/greenTank_right.png").getImage();
+            }
+        }
+
+        public void turnTank2() {
+            switch (world.getTank(1).getDirection()) {
+                case UP -> imgTank2 = new ImageIcon("img/redTank_up.png").getImage();
+                case DOWN -> imgTank2 = new ImageIcon("img/redTank_down.png").getImage();
+                case LEFT -> imgTank2 = new ImageIcon("img/redTank_left.png").getImage();
+                case RIGHT -> imgTank2 = new ImageIcon("img/redTank_right.png").getImage();
             }
         }
 
@@ -134,16 +156,33 @@ public class Game extends JFrame {
             }
         }
 
-        public void paintTank(Graphics g) {
-            Tank tank = world.getTank();
+        public void paintTank1(Graphics g) {
+            Tank tank = world.getTank(0);
             int nx = tank.getX();
             int ny = tank.getY();
-            // System.out.println("x: " + nx + " y: " + ny);
-            g.drawImage(imgTank, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
+//             System.out.println("x: " + nx + " y: " + ny);
+            g.drawImage(imgTank1, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
 
-        public void paintBullet(Graphics g) {
-            for (Bullet bullet : world.getTank().getBullets()) {
+        public void paintTank2(Graphics g) {
+            Tank tank = world.getTank(1);
+            int nx = tank.getX();
+            int ny = tank.getY();
+//             System.out.println("x: " + nx + " y: " + ny);
+            g.drawImage(imgTank2, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
+        }
+
+        public void paintBulletTank1(Graphics g) {
+            for (Bullet bullet : world.getTank(0).getBullets()) {
+                turnBullet(bullet);
+                int bx = bullet.getX();
+                int by = bullet.getY();
+                g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
+            }
+        }
+
+        public void paintBulletTank2(Graphics g) {
+            for (Bullet bullet : world.getTank(1).getBullets()) {
                 turnBullet(bullet);
                 int bx = bullet.getX();
                 int by = bullet.getY();

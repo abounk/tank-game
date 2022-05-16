@@ -4,8 +4,8 @@ import java.util.List;
 public class World {
     private int width;
     private int height;
-//    private List<Tank> tanks = new ArrayList<Tank>();
-    private Tank tank;
+    private List<Tank> tanks = new ArrayList<Tank>();
+//    private Tank tank;
 
     private BulletPool bulletPool;
     private List<Bullet> bullets;
@@ -25,7 +25,10 @@ public class World {
         this.bricksList = new ArrayList<Brick>();
         this.steelList = new ArrayList<Steel>();
         this.bushList = new ArrayList<Bush>();
-        tank = new Tank(569, 622);
+
+        tanks.add(new Tank(0, 360));
+        tanks.add(new Tank(1160, 360));
+
         addListObject();
     }
 
@@ -69,11 +72,14 @@ public class World {
     }
 
     public void tick() {
-        tank.animate();
+//        tank.animate();
+        for (Tank tank : tanks) {
+            tank.animate();
+        }
     }
 
-    public Tank getTank() {
-        return this.tank;
+    public Tank getTank(int numTank) {
+        return this.tanks.get(numTank);
     }
 
     public int getWidth() {
