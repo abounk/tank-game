@@ -8,7 +8,6 @@ public class Map {
     private List<List<Integer>> listBush = Arrays.asList();
     
 
-    // public Map(int size) {
     public Map() {
         initObstracle();
     }

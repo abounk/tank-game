@@ -52,12 +52,6 @@ public class Game extends JFrame {
         private Image imageSteel;
         private Image imageBush;
 
-        // public WorldPanel() {
-        //     setPreferredSize(new Dimension(10 * PIXEL_SIZE, 10 * PIXEL_SIZE));
-        //     imageBrick = new ImageIcon("imgs/brick.png").getImage();
-        //     imageSteel = new ImageIcon("imgs/steel.png").getImage();
-        //     imageBush = new ImageIcon("imgs/bush.png").getImage();
-        // }
         private Image imgTank;
 
         WorldPanel() {
@@ -70,7 +64,6 @@ public class Game extends JFrame {
             imageSteel = new ImageIcon("imgs/steel.png").getImage();
             imageBush = new ImageIcon("imgs/bush2.png").getImage();
 
-            // imgTank = new ImageIcon()
 
             addKeyListener(new KeyHandler(
                     world.getTank(),
@@ -91,9 +84,6 @@ public class Game extends JFrame {
 
             paintBrick(g);
             paintSteel(g);
-            // paintBush(g);
-            // g.setColor(Color.BLACK);
-            // g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
 
             turnTank();
             paintTank(g);
@@ -125,11 +115,6 @@ public class Game extends JFrame {
                 int y = a.getY() * PIXEL_SIZE;
                 g.drawImage(imageBush, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
             }
-            // g.setColor(Color.BLACK);
-            // g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
-
-            // turnTank();
-            // paintTank(g);
         }
 
         public void turnTank() {

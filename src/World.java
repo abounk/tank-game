@@ -61,7 +61,6 @@ public class World {
 
     public List<Bush> getBushList() {
         return this.bushList;
-        // tank = new Tank(30, 30);
     }
 
     public void tick() {
