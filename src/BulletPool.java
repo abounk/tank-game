@@ -14,8 +14,7 @@ public class BulletPool {
     private boolean isReloading = false;
 
     public BulletPool() {
-        int size = 3;
-        for(int i = 0; i < size; i ++) {
+        for(int i = 0; i < BULLET_SIZE; i ++) {
             bullets.add(new Bullet());
         }
     }

@@ -9,4 +9,6 @@ public class Bullet extends MovingObj {
     public Bullet (int x, int y) {
         super(x, y, SHELL_SPEED);
     }
+
+
 }

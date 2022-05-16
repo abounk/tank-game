@@ -6,9 +6,14 @@ public class World {
     private int height;
 //    private List<Tank> tanks = new ArrayList<Tank>();
     private Tank tank;
-    private Bullet bullet;
+
+    private BulletPool bulletPool;
+    private List<Bullet> bullets;
 
     public World(int width, int height) {
+        bulletPool = new BulletPool();
+        bullets = new ArrayList<Bullet>();
+
         this.width = width;
         this.height = height;
         tank = new Tank(30, 30);

@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class Game extends JFrame {
     private Thread gameThread;
@@ -42,6 +43,7 @@ public class Game extends JFrame {
         public static final int PIXEL_SIZE = 20;
 
         private Image imgTank;
+        private Image imgBullet;
 
         WorldPanel() {
             setPreferredSize(new Dimension(
@@ -53,9 +55,9 @@ public class Game extends JFrame {
                     KeyEvent.VK_W,
                     KeyEvent.VK_S,
                     KeyEvent.VK_A,
-                    KeyEvent.VK_D
+                    KeyEvent.VK_D,
+                    KeyEvent.VK_SPACE
             ));
-
         }
 
         @Override
@@ -64,6 +66,7 @@ public class Game extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
 
+            paintBullet(g);
             turnTank();
             paintTank(g);
         }
@@ -77,6 +80,15 @@ public class Game extends JFrame {
             }
         }
 
+        public void turnBullet(Bullet bullet) {
+            switch (bullet.getDirection()) {
+                case UP -> imgBullet = new ImageIcon("img/bullet_up.png").getImage();
+                case DOWN -> imgBullet = new ImageIcon("img/bullet_down.png").getImage();
+                case LEFT -> imgBullet = new ImageIcon("img/bullet_left.png").getImage();
+                case RIGHT -> imgBullet = new ImageIcon("img/bullet_right.png").getImage();
+            }
+        }
+
         public void paintTank(Graphics g) {
             Tank tank = world.getTank();
             int nx = tank.getX();
@@ -84,6 +96,18 @@ public class Game extends JFrame {
 //            System.out.println("x: " + nx + " y: " + ny);
             g.drawImage(imgTank, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
+
+        public void paintBullet(Graphics g) {
+            List<Bullet> bullets = world.getTank().getBullets();
+            for (Bullet bullet : bullets) {
+                turnBullet(bullet);
+                int bx = bullet.getX();
+                int by = bullet.getY();
+                g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
+            }
+        }
+
+
     }
 
     public static void main(String[] args) {
