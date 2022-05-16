@@ -29,6 +29,7 @@ public class BulletPool {
 
     public void returnBullet(Bullet bullet) {
         bullet.setPosition(-999, -999);
+        bullet.stop();
         this.usedBullet.add(bullet);
         if (!isReloading) {
             isReloading = true;
