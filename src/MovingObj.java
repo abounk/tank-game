@@ -3,6 +3,7 @@ public class MovingObj extends WorldObj{
     private int speed;
 
     private boolean isMoving = false;
+    private boolean isBorderHit = false;
 
     public MovingObj (int x, int y) {
         super(x, y);
@@ -18,6 +19,7 @@ public class MovingObj extends WorldObj{
 
     public void move() {
         this.isMoving = true;
+        this.isBorderHit = false;
     }
 
     public  void stop() {
@@ -38,6 +40,7 @@ public class MovingObj extends WorldObj{
                 x + this.getWidth() > 30 * Game.WorldPanel.PIXEL_SIZE ||
                 y + this.getHeight() > 20 * Game.WorldPanel.PIXEL_SIZE
         ) {
+            this.isBorderHit = true;
             this.stop();
             return;
         }
@@ -53,5 +56,8 @@ public class MovingObj extends WorldObj{
         return direction;
     }
 
+    public boolean getIsBorderHit() {
+        return isBorderHit;
+    }
 }
 

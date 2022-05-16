@@ -53,26 +53,24 @@ public class Game extends JFrame {
         private Image imageBush;
 
         private Image imgTank;
+        private Image imgBullet;
 
         WorldPanel() {
             setPreferredSize(new Dimension(
                     world.getWidth() * PIXEL_SIZE,
-                    world.getHeight() * PIXEL_SIZE
-            ));
+                    world.getHeight() * PIXEL_SIZE));
 
             imageBrick = new ImageIcon("imgs/brick.png").getImage();
             imageSteel = new ImageIcon("imgs/steel.png").getImage();
             imageBush = new ImageIcon("imgs/bush2.png").getImage();
-
 
             addKeyListener(new KeyHandler(
                     world.getTank(),
                     KeyEvent.VK_W,
                     KeyEvent.VK_S,
                     KeyEvent.VK_A,
-                    KeyEvent.VK_D
-            ));
-
+                    KeyEvent.VK_D,
+                    KeyEvent.VK_SPACE));
         }
 
         @Override
@@ -85,6 +83,7 @@ public class Game extends JFrame {
             paintBrick(g);
             paintSteel(g);
 
+            paintBullet(g);
             turnTank();
             paintTank(g);
             paintBush(g);
@@ -92,7 +91,7 @@ public class Game extends JFrame {
 
         public void paintBrick(Graphics g) {
             List<Brick> brickList = world.getBrickList();
-            for (Brick a: brickList) {
+            for (Brick a : brickList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
                 g.drawImage(imageBrick, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
@@ -101,7 +100,7 @@ public class Game extends JFrame {
 
         public void paintSteel(Graphics g) {
             List<Steel> steelList = world.getSteelList();
-            for (Steel a: steelList) {
+            for (Steel a : steelList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
                 g.drawImage(imageSteel, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
@@ -110,7 +109,7 @@ public class Game extends JFrame {
 
         public void paintBush(Graphics g) {
             List<Bush> bushList = world.getBushList();
-            for (Bush a: bushList) {
+            for (Bush a : bushList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
                 g.drawImage(imageBush, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
@@ -126,16 +125,33 @@ public class Game extends JFrame {
             }
         }
 
+        public void turnBullet(Bullet bullet) {
+            switch (bullet.getDirection()) {
+                case UP -> imgBullet = new ImageIcon("img/bullet_up.png").getImage();
+                case DOWN -> imgBullet = new ImageIcon("img/bullet_down.png").getImage();
+                case LEFT -> imgBullet = new ImageIcon("img/bullet_left.png").getImage();
+                case RIGHT -> imgBullet = new ImageIcon("img/bullet_right.png").getImage();
+            }
+        }
+
         public void paintTank(Graphics g) {
             Tank tank = world.getTank();
             int nx = tank.getX();
             int ny = tank.getY();
-        //    System.out.println("x: " + nx + " y: " + ny);
+            // System.out.println("x: " + nx + " y: " + ny);
             g.drawImage(imgTank, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
+
+        public void paintBullet(Graphics g) {
+            for (Bullet bullet : world.getTank().getBullets()) {
+                turnBullet(bullet);
+                int bx = bullet.getX();
+                int by = bullet.getY();
+                g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
+            }
+        }
+
     }
-
-
 
     public static void main(String[] args) {
         Game game = new Game();

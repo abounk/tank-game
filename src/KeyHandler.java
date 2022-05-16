@@ -12,12 +12,13 @@ public class KeyHandler extends KeyAdapter {
 
     private int currentKey;
 
-    public KeyHandler (Tank tank, int up, int down, int left, int right) {
+    public KeyHandler (Tank tank, int up, int down, int left, int right, int shoot) {
         this.tank = tank;
         this.up = up;
         this.down = down;
         this.left = left;
         this.right = right;
+        this.shoot = shoot;
     }
 
     @Override
@@ -34,6 +35,8 @@ public class KeyHandler extends KeyAdapter {
         } else if (e.getKeyCode() == right) {
             tank.setDirection(Direction.RIGHT);
             tank.move();
+        } else if (e.getKeyCode() == shoot) {
+            tank.shoot();
         }
         currentKey = e.getKeyCode();
         }
@@ -43,7 +46,8 @@ public class KeyHandler extends KeyAdapter {
         if ((e.getKeyCode() == up && currentKey == e.getKeyCode())
                 || (e.getKeyCode() == down && currentKey == e.getKeyCode())
                 || (e.getKeyCode() == left && currentKey == e.getKeyCode())
-                || (e.getKeyCode() == right && currentKey == e.getKeyCode())) {
+                || (e.getKeyCode() == right && currentKey == e.getKeyCode())
+                || (e.getKeyCode() == shoot && currentKey == e.getKeyCode())) {
             tank.stop();
         }
     }
