@@ -20,7 +20,7 @@ public class World {
         this.bricksList = new ArrayList<Brick>();
         this.steelList = new ArrayList<Steel>();
         this.bushList = new ArrayList<Bush>();
-        tank = new Tank(20, 20);
+        tank = new Tank(569, 622);
         addListObject();
     }
 

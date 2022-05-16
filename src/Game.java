@@ -145,7 +145,7 @@ public class Game extends JFrame {
             Tank tank = world.getTank();
             int nx = tank.getX();
             int ny = tank.getY();
-//            System.out.println("x: " + nx + " y: " + ny);
+        //    System.out.println("x: " + nx + " y: " + ny);
             g.drawImage(imgTank, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
     }

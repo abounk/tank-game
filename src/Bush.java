@@ -1,4 +1,4 @@
-public class Bush extends Obstracle {
+public class Bush extends WorldObj {
     public Bush(int x, int y) {
         super(x,y);
     }
