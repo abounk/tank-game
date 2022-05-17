@@ -1,4 +1,5 @@
 import javax.swing.text.html.parser.Entity;
+import java.awt.*;
 
 public class WorldObj {
     private int x;
@@ -7,21 +8,21 @@ public class WorldObj {
     private int width = Game.WorldPanel.PIXEL_SIZE;
     private int height = Game.WorldPanel.PIXEL_SIZE;
 
+    private Rectangle area = new Rectangle(x, y, width, height);
 
     public WorldObj(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public void onHit() {};
-
     public boolean isHit(WorldObj other) {
-        return (
-                getX() < other.getX() + other.getWidth() &&
-                getX() + getWidth() > other.getX() &&
-                getY() < other.getY() + other.getWidth() &&
-                getY() + getHeight() > other.getY()
-                );
+//        return (
+//                getX() < other.getX() + other.getWidth() &&
+//                getX() + getWidth() > other.getX() &&
+//                getY() < other.getY() + other.getWidth() &&
+//                getY() + getHeight() > other.getY()
+//                );
+        return area.intersects(other.getArea());
     }
 
     public void animate() {
@@ -48,9 +49,16 @@ public class WorldObj {
         return y;
     }
 
+    public Rectangle getArea() {
+        return area;
+    }
+
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
+
+        area.x = x;
+        area.y = y;
     }
 
 
