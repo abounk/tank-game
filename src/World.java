@@ -31,8 +31,8 @@ public class World {
 
 //        x = 0, 1160
 //        y = 360
-        Tank tank1 = new Tank(0, 50);
-        Tank tank2 = new Tank(1160, 50);
+        Tank tank1 = new Tank(0, 360);
+        Tank tank2 = new Tank(1160, 360);
         tanks.add(tank1);
         tanks.add(tank2);
 
@@ -41,48 +41,33 @@ public class World {
     }
 
     private void addListObject() {
-        addBrickList();
-        addSteelList();
-        addBushList();
+        addBrick();
+        addSteel();
+        addBush();
     }
 
-    private void addBrickList() {
+    private void addBrick() {
         List<List<Integer>> listBrick = this.map.getBrickList();
         for (List<Integer> a: listBrick) {
             Brick brick = new Brick(a.get(0)-1, a.get(1)-1);
-            bricksList.add(brick);
             worldObjList.add(brick);
         }
     }
 
-    private void addSteelList() {
+    private void addSteel() {
         List<List<Integer>> listSteel = this.map.getSteelList();
         for (List<Integer> a: listSteel) {
             Steel steel = new Steel(a.get(0)-1, a.get(1)-1);
-            steelList.add(steel);
             worldObjList.add(steel);
         }
     }
 
-    private void addBushList() {
+    private void addBush() {
         List<List<Integer>> listBush = this.map.getBushList();
         for (List<Integer> a: listBush) {
             Bush bush = new Bush(a.get(0)-1, a.get(1)-1);
-            bushList.add(bush);
             worldObjList.add(bush);
         }
-    }
-
-    public List<Brick> getBrickList() {
-        return this.bricksList;
-    }
-
-    public List<Steel> getSteelList() {
-        return this.steelList;
-    }
-
-    public List<Bush> getBushList() {
-        return this.bushList;
     }
 
     public List<WorldObj> getWorldObjList() {
@@ -97,11 +82,9 @@ public class World {
                 WorldObj hitBlock = bullet.checkHit(worldObjList);
                 if (hitBlock != null) {
                     worldObjList.remove(hitBlock);
-                    bricksList.remove(hitBlock);
                 }
             }
-            }
-//        checkBulletHit();
+        }
     }
 
     public Tank getTank(int numTank) {

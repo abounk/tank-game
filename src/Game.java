@@ -83,9 +83,6 @@ public class Game extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
 
-            paintBrick(g);
-            paintSteel(g);
-
             paintBulletTank1(g);
             paintBulletTank2(g);
 
@@ -94,35 +91,23 @@ public class Game extends JFrame {
             paintTank1(g);
             paintTank2(g);
 
-            paintBush(g);
+            paintBlock(g);
 
 //            paintRectangle(g);
         }
 
-        public void paintBrick(Graphics g) {
-            List<Brick> brickList = world.getBrickList();
-            for (Brick a : brickList) {
-                int x = a.getX() * PIXEL_SIZE;
-                int y = a.getY() * PIXEL_SIZE;
-                g.drawImage(imageBrick, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
-            }
-        }
-
-        public void paintSteel(Graphics g) {
-            List<Steel> steelList = world.getSteelList();
-            for (Steel a : steelList) {
-                int x = a.getX() * PIXEL_SIZE;
-                int y = a.getY() * PIXEL_SIZE;
-                g.drawImage(imageSteel, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
-            }
-        }
-
-        public void paintBush(Graphics g) {
-            List<Bush> bushList = world.getBushList();
-            for (Bush a : bushList) {
-                int x = a.getX() * PIXEL_SIZE;
-                int y = a.getY() * PIXEL_SIZE;
-                g.drawImage(imageBush, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
+        public void paintBlock(Graphics g) {
+            List<WorldObj> blockList = world.getWorldObjList();
+            for (WorldObj block : blockList) {
+                int x = block.getX() * PIXEL_SIZE;
+                int y = block.getY() * PIXEL_SIZE;
+                if (block instanceof Brick) {
+                    g.drawImage(imageBrick, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
+                } else if (block instanceof Steel) {
+                    g.drawImage(imageSteel, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
+                } else {
+                    g.drawImage(imageBush, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
+                }
             }
         }
 
