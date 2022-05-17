@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.List;
 
 public class MovingObj extends WorldObj{
@@ -30,18 +31,6 @@ public class MovingObj extends WorldObj{
         this.isMoving = false;
     }
 
-    public void checkHit(List<WorldObj> blocks) {
-//        isCollision = false;
-//        for (WorldObj block : blocks) {
-//            if (!block.canHit()) {
-//                continue;
-//            }
-//            else if (isHit(block)) {
-//                isCollision = true;
-//                return;
-//            }
-//        }
-    }
 
     @Override
     public void animate() {

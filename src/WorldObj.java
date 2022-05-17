@@ -13,15 +13,6 @@ public class WorldObj {
         this.y = y;
     }
 
-    public boolean isHit(WorldObj other) {
-        return (
-                getX() < other.getX() + other.getWidth() &&
-                getX() + getWidth() > other.getX() &&
-                getY() < other.getY() + other.getWidth() &&
-                getY() + getHeight() > other.getY()
-                );
-    }
-
     public void animate() {
     }
 
@@ -44,10 +35,6 @@ public class WorldObj {
 
     public int getY() {
         return y;
-    }
-
-    public boolean canHit() {
-        return true;
     }
 
     public void setPosition(int x, int y) {

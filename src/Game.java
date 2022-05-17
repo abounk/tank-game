@@ -41,10 +41,6 @@ public class Game extends JFrame {
     class WorldPanel extends JPanel {
         public static final int PIXEL_SIZE = 40;
 
-        private List<Brick> brickList;
-        private List<Steel> steelList;
-        private List<Bush> bushList;
-
         private Image imageBrick;
         private Image imageSteel;
         private Image imageBush;
@@ -100,7 +96,7 @@ public class Game extends JFrame {
 
             paintBush(g);
 
-            paintRectangle(g);
+//            paintRectangle(g);
         }
 
         public void paintBrick(Graphics g) {

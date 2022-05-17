@@ -90,11 +90,18 @@ public class World {
     }
 
     public void tick() {
-//        tank.animate();
         for (Tank tank : tanks) {
             tank.animate();
-            tank.checkMove(worldObjList);
+            tank.checkHit(worldObjList);
+            for (Bullet bullet : tank.getBullets()) {
+                WorldObj hitBlock = bullet.checkHit(worldObjList);
+                if (hitBlock != null) {
+                    worldObjList.remove(hitBlock);
+                    bricksList.remove(hitBlock);
+                }
             }
+            }
+//        checkBulletHit();
     }
 
     public Tank getTank(int numTank) {

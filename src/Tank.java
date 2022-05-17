@@ -60,7 +60,15 @@ public class Tank extends MovingObj{
         bullets.add(bullet);
     }
 
-    public void checkMove(List<WorldObj> blockList) {
+    public BulletPool getBulletPool() {
+        return this.bulletPool;
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public void checkHit(List<WorldObj> blockList) {
         for (WorldObj obj : blockList) {
             if (obj instanceof Bush) {
                 continue;
@@ -96,19 +104,12 @@ public class Tank extends MovingObj{
         }
     }
 
-    public BulletPool getBulletPool() {
-        return this.bulletPool;
-    }
-
-    public List<Bullet> getBullets() {
-        return bullets;
-    }
-
     public void cleanUpBullets() {
         List<Bullet> toRemove = new ArrayList<Bullet>();
         for (Bullet bullet : bullets) {
-            if (bullet.getIsBorderHit()) {
+            if (bullet.getIsBorderHit() || bullet.getIsBlockHit()) {
                 toRemove.add(bullet);
+                bullet.cleanBullet();
             }
         }
         for (Bullet bullet : toRemove) {
