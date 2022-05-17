@@ -16,6 +16,8 @@ public class World {
     private Tank tank1;
     private Tank tank2;
 
+    private boolean isOver;
+
     public World(int width, int height) {
         bulletPool = new BulletPool();
         bullets = new ArrayList<Bullet>();
@@ -26,9 +28,10 @@ public class World {
         this.map = new Map();
         this.worldObjList = new ArrayList<WorldObj>();
         this.toRemove = new ArrayList<WorldObj>();
+        this.isOver = false;
 
-//        x = 0, 1160
-//        y = 360
+        // x = 0, 1160
+        // y = 360
         tank1 = new Tank(0, 360);
         tank2 = new Tank(1160, 360);
         tanks.add(tank1);
@@ -45,24 +48,24 @@ public class World {
 
     private void addBrick() {
         List<List<Integer>> listBrick = this.map.getBrickList();
-        for (List<Integer> a: listBrick) {
-            Brick brick = new Brick(a.get(0)-1, a.get(1)-1);
+        for (List<Integer> a : listBrick) {
+            Brick brick = new Brick(a.get(0) - 1, a.get(1) - 1);
             worldObjList.add(brick);
         }
     }
 
     private void addSteel() {
         List<List<Integer>> listSteel = this.map.getSteelList();
-        for (List<Integer> a: listSteel) {
-            Steel steel = new Steel(a.get(0)-1, a.get(1)-1);
+        for (List<Integer> a : listSteel) {
+            Steel steel = new Steel(a.get(0) - 1, a.get(1) - 1);
             worldObjList.add(steel);
         }
     }
 
     private void addBush() {
         List<List<Integer>> listBush = this.map.getBushList();
-        for (List<Integer> a: listBush) {
-            Bush bush = new Bush(a.get(0)-1, a.get(1)-1);
+        for (List<Integer> a : listBush) {
+            Bush bush = new Bush(a.get(0) - 1, a.get(1) - 1);
             worldObjList.add(bush);
         }
     }
@@ -93,10 +96,11 @@ public class World {
             for (Bullet bullet : tank.getBullets()) {
                 tank1.isHit(bullet);
                 tank2.isHit(bullet);
-//                if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
-//                    System.out.println("HEEEETTT");
+                // if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
+                // System.out.println("HEEEETTT");
             }
         }
+        // checkBreak();
     }
 
     public Tank getTank(int numTank) {
@@ -109,6 +113,10 @@ public class World {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public boolean getisOver() {
+        return isOver;
     }
 
 }

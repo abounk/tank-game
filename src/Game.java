@@ -3,28 +3,35 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Game extends JFrame {
     private Thread gameThread;
     private WorldPanel worldPanel;
     private World world;
 
+    private PreGameUI preGameUI;
+    public boolean selectMode = false;
+    public boolean onePlayermode = false;
+    public boolean twoPlayermode = false;
+
     public Game() {
         world = new World(30, 20);
-        worldPanel = new WorldPanel();
-        add(worldPanel);
-        pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        worldPanel.requestFocus();
         setTitle("Tank game");
+        setLayout(new BorderLayout());
         setResizable(false);
     }
 
-    public void start() {
-        setVisible(true);
+    public void startGame() {
+        worldPanel = new WorldPanel();
+        add(worldPanel);
+        pack();
+        worldPanel.requestFocus();
         gameThread = new Thread() {
             public void run() {
-                while (true) {
+                while (!world.getisOver()) {
                     world.tick();
                     try {
                         sleep(1000 / 300);
@@ -36,6 +43,22 @@ public class Game extends JFrame {
             }
         };
         gameThread.start();
+    }
+
+    public void start() {
+        setVisible(true);
+        initPreGame();
+    }
+
+    public void initPreGame() {
+        preGameUI = new PreGameUI();
+        add(preGameUI);
+        pack();
+    }
+
+    public void deleteinitPreGame() {
+        remove(preGameUI);
+        pack();
     }
 
     class WorldPanel extends JPanel {
@@ -72,8 +95,7 @@ public class Game extends JFrame {
                     KeyEvent.VK_K,
                     KeyEvent.VK_J,
                     KeyEvent.VK_L,
-                    KeyEvent.VK_SEMICOLON
-            ));
+                    KeyEvent.VK_SEMICOLON));
         }
 
         @Override
@@ -82,19 +104,30 @@ public class Game extends JFrame {
 
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
+            g.setColor(Color.white);
+            // g.drawString("Player1 Score : " + "", 30, 30);
 
             paintBulletTank1(g);
-            paintBulletTank2(g);
-
             turnTank1();
-            turnTank2();
             paintTank1(g);
-            paintTank2(g);
+            if (twoPlayermode) {
+                // g.drawString("Player2 Score : " + "", 1030, 30);
+                paintBulletTank2(g);
+                turnTank2();
+                paintTank2(g);
+            }
 
             paintBlock(g);
 
-//            paintRectangle(g);
+            if (world.getisOver()) {
+                JOptionPane.showMessageDialog(this, "Game ended!", "Message",
+                        JOptionPane.WARNING_MESSAGE);
+                Game game = new Game();
+                game.start();
+            }
         }
+
+        // paintRectangle(g);
 
         public void paintBlock(Graphics g) {
             List<WorldObj> blockList = world.getWorldObjList();
@@ -142,7 +175,7 @@ public class Game extends JFrame {
             Tank tank = world.getTank(0);
             int nx = tank.getX();
             int ny = tank.getY();
-//             System.out.println("x: " + nx + " y: " + ny);
+            // System.out.println("x: " + nx + " y: " + ny);
             g.drawImage(imgTank1, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
 
@@ -150,7 +183,7 @@ public class Game extends JFrame {
             Tank tank = world.getTank(1);
             int nx = tank.getX();
             int ny = tank.getY();
-//             System.out.println("x: " + nx + " y: " + ny);
+            // System.out.println("x: " + nx + " y: " + ny);
             g.drawImage(imgTank2, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
 
@@ -175,9 +208,70 @@ public class Game extends JFrame {
         public void paintRectangle(Graphics g) {
             g.setColor(Color.white);
             for (WorldObj block : world.getWorldObjList()) {
-//                System.out.println("x: " + block.getX() + " y: " + block.getY());
+                // System.out.println("x: " + block.getX() + " y: " + block.getY());
                 g.drawRect(block.getX() * PIXEL_SIZE, block.getY() * PIXEL_SIZE, block.getWidth(), block.getHeight());
             }
+        }
+    }
+
+    class PreGameUI extends JPanel {
+        private JButton onoPlayer;
+        private JButton twoPlayer;
+
+        public PreGameUI() {
+            setLayout(null);
+            setPreferredSize(new Dimension(
+                    world.getWidth() * 40,
+                    world.getHeight() * 40));
+            JLabel preGameLabel = new JLabel("Mode");
+            preGameLabel.setFont(new Font("Arial", Font.PLAIN, 50));
+            preGameLabel.setBounds(200, 300, 400, 100);
+            add(preGameLabel);
+            pack();
+            setButton();
+        }
+
+        private void setButton() {
+            onePlayerButton();
+            twoPlayerButton();
+        }
+
+        private void onePlayerButton() {
+            onoPlayer = new JButton("Single-Player");
+            onoPlayer.setBounds(400, 200, 400, 100);
+            onoPlayer.setFont(new Font("Arial", Font.PLAIN, 50));
+            onoPlayer.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    selectMode = true;
+                    twoPlayer.setEnabled(false);
+                    onePlayermode = true;
+                    deleteinitPreGame();
+                    pack();
+                    startGame();
+
+                }
+            });
+            add(onoPlayer);
+        }
+
+        private void twoPlayerButton() {
+            twoPlayer = new JButton("Multi-Player");
+            twoPlayer.setBounds(400, 400, 400, 100);
+            twoPlayer.setFont(new Font("Arial", Font.PLAIN, 50));
+            twoPlayer.setPreferredSize(new Dimension(400, 100));
+            twoPlayer.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    selectMode = true;
+                    onoPlayer.setEnabled(false);
+                    twoPlayermode = true;
+                    deleteinitPreGame();
+                    pack();
+                    startGame();
+                }
+            });
+            add(twoPlayer);
         }
     }
 

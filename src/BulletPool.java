@@ -1,5 +1,3 @@
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,7 @@ public class BulletPool {
     private boolean isReloading = false;
 
     public BulletPool() {
-        for(int i = 0; i < BULLET_SIZE; i ++) {
+        for (int i = 0; i < BULLET_SIZE; i++) {
             bullets.add(new Bullet());
         }
     }

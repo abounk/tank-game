@@ -5,16 +5,15 @@ public class Bullet extends MovingObj {
     public static int SHELL_SPEED = 3;
 
     private boolean isBlockHit = false;
-    private boolean isTankHit = false;
 
     private Tank owner;
 
-    public Bullet () {
+    public Bullet() {
         super(-1, -1, SHELL_SPEED);
         this.setSize(1, 1);
     }
 
-    public Bullet (int x, int y) {
+    public Bullet(int x, int y) {
         super(x, y, SHELL_SPEED);
     }
 
@@ -33,10 +32,9 @@ public class Bullet extends MovingObj {
                     getX(),
                     getY(),
                     getWidth(),
-                    getHeight()
-            );
+                    getHeight());
             if (thisArea.intersects(otherArea)) {
-//                System.out.println("hit");
+                // System.out.println("hit");
                 isBlockHit = true;
                 if (obj instanceof Steel) {
                     return null;

@@ -12,7 +12,7 @@ public class KeyHandler extends KeyAdapter {
 
     private int currentKey;
 
-    public KeyHandler (Tank tank, int up, int down, int left, int right, int shoot) {
+    public KeyHandler(Tank tank, int up, int down, int left, int right, int shoot) {
         this.tank = tank;
         this.up = up;
         this.down = down;
@@ -42,7 +42,7 @@ public class KeyHandler extends KeyAdapter {
         } else if (e.getKeyCode() == shoot) {
             tank.shoot();
         }
-        }
+    }
 
     @Override
     public void keyReleased(KeyEvent e) {

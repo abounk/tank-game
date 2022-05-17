@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.List;
 
-public class MovingObj extends WorldObj{
+public class MovingObj extends WorldObj {
     private Direction direction;
     private int speed;
 
@@ -10,13 +10,13 @@ public class MovingObj extends WorldObj{
 
     private boolean isCollision = false;
 
-    public MovingObj (int x, int y) {
+    public MovingObj(int x, int y) {
         super(x, y);
         this.speed = 1;
         this.direction = Direction.UP;
     }
 
-    public MovingObj (int x, int y, int speed) {
+    public MovingObj(int x, int y, int speed) {
         super(x, y);
         this.speed = speed;
         this.direction = Direction.UP;
@@ -31,7 +31,6 @@ public class MovingObj extends WorldObj{
         this.isMoving = false;
     }
 
-
     @Override
     public void animate() {
         if (!isMoving || isCollision) {
@@ -40,18 +39,15 @@ public class MovingObj extends WorldObj{
         int x = this.getX() + (direction.getX() * speed);
         int y = this.getY() + (direction.getY() * speed);
 
-        if (
-                x < 0 ||
+        if (x < 0 ||
                 y < 0 ||
                 x + this.getWidth() > 30 * Game.WorldPanel.PIXEL_SIZE ||
-                y + this.getHeight() > 20 * Game.WorldPanel.PIXEL_SIZE
-        ) {
+                y + this.getHeight() > 20 * Game.WorldPanel.PIXEL_SIZE) {
             this.isBorderHit = true;
             this.stop();
             return;
         }
         this.setPosition(x, y);
-//        System.out.println("x: " + getX() + " y: " + getY());
     }
 
     public void setDirection(Direction direction) {
@@ -70,4 +66,3 @@ public class MovingObj extends WorldObj{
         return speed;
     }
 }
-

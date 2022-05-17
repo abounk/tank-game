@@ -42,5 +42,4 @@ public class WorldObj {
         this.y = y;
     }
 
-
 }

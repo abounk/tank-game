@@ -2,9 +2,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tank extends MovingObj{
+public class Tank extends MovingObj {
     private BulletPool bulletPool = new BulletPool();
     private List<Bullet> bullets = new ArrayList<Bullet>();
+
+    // private boolean isBreakable = true;
 
     public Tank(int x, int y) {
         super(x, y);
@@ -67,14 +69,12 @@ public class Tank extends MovingObj{
                 bullet.getX(),
                 bullet.getY(),
                 bullet.getWidth(),
-                bullet.getHeight()
-        );
+                bullet.getHeight());
         Rectangle thisArea = new Rectangle(
                 getX(),
                 getY(),
                 getWidth(),
-                getHeight()
-        );
+                getHeight());
         if (thisArea.intersects(bulletArea)) {
             if (bullet.getOwner() != this) {
                 return true;
@@ -97,14 +97,12 @@ public class Tank extends MovingObj{
                     getX(),
                     getY(),
                     getWidth(),
-                    getHeight()
-            );
+                    getHeight());
             if (thisArea.intersects(otherArea)) {
-//                System.out.println("hit");
+                // System.out.println("hit");
                 setPosition(
                         getX() - getDirection().getX() * getSpeed(),
-                        getY() - getDirection().getY() * getSpeed()
-                );
+                        getY() - getDirection().getY() * getSpeed());
                 stop();
             }
         }
@@ -123,4 +121,8 @@ public class Tank extends MovingObj{
             bulletPool.returnBullet(bullet);
         }
     }
+
+    // public boolean getisBreakable() {
+    // return isBreakable;
+    // }
 }
