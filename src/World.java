@@ -10,10 +10,8 @@ public class World {
     private List<Bullet> bullets;
 
     private Map map;
-    private List<Brick> bricksList;
-    private List<Steel> steelList;
-    private List<Bush> bushList;
     private List<WorldObj> worldObjList;
+    private List<WorldObj> toRemove;
 
     public World(int width, int height) {
         bulletPool = new BulletPool();
@@ -23,11 +21,8 @@ public class World {
         this.height = height;
 
         this.map = new Map();
-        this.bricksList = new ArrayList<Brick>();
-        this.steelList = new ArrayList<Steel>();
-        this.bushList = new ArrayList<Bush>();
-
         this.worldObjList = new ArrayList<WorldObj>();
+        this.toRemove = new ArrayList<WorldObj>();
 
 //        x = 0, 1160
 //        y = 360
@@ -35,7 +30,6 @@ public class World {
         Tank tank2 = new Tank(1160, 360);
         tanks.add(tank1);
         tanks.add(tank2);
-
 
         addListObject();
     }
@@ -81,8 +75,11 @@ public class World {
             for (Bullet bullet : tank.getBullets()) {
                 WorldObj hitBlock = bullet.checkHit(worldObjList);
                 if (hitBlock != null) {
-                    worldObjList.remove(hitBlock);
+                    toRemove.add(hitBlock);
                 }
+            }
+            for (WorldObj block : toRemove) {
+                worldObjList.remove(block);
             }
         }
     }
