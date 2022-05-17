@@ -1,9 +1,13 @@
+import java.util.List;
+
 public class MovingObj extends WorldObj{
     private Direction direction;
     private int speed;
 
     private boolean isMoving = false;
     private boolean isBorderHit = false;
+
+    private boolean isCollision = false;
 
     public MovingObj (int x, int y) {
         super(x, y);
@@ -22,13 +26,26 @@ public class MovingObj extends WorldObj{
         this.isBorderHit = false;
     }
 
-    public  void stop() {
+    public void stop() {
         this.isMoving = false;
+    }
+
+    public void checkHit(List<WorldObj> blocks) {
+//        isCollision = false;
+//        for (WorldObj block : blocks) {
+//            if (!block.canHit()) {
+//                continue;
+//            }
+//            else if (isHit(block)) {
+//                isCollision = true;
+//                return;
+//            }
+//        }
     }
 
     @Override
     public void animate() {
-        if (!isMoving) {
+        if (!isMoving || isCollision) {
             return;
         }
         int x = this.getX() + (direction.getX() * speed);
@@ -58,6 +75,10 @@ public class MovingObj extends WorldObj{
 
     public boolean getIsBorderHit() {
         return isBorderHit;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 }
 

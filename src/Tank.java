@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,41 @@ public class Tank extends MovingObj{
         bullets.add(bullet);
     }
 
+    public void checkMove(List<WorldObj> blockList) {
+        for (WorldObj obj : blockList) {
+            if (obj instanceof Bush) {
+                continue;
+            }
+            Rectangle otherArea = new Rectangle(
+                    obj.getX() * Game.WorldPanel.PIXEL_SIZE,
+                    obj.getY() * Game.WorldPanel.PIXEL_SIZE,
+                    obj.getWidth(),
+                    obj.getHeight());
+            Rectangle thisArea = new Rectangle(
+                    getX(),
+                    getY(),
+                    getWidth(),
+                    getHeight()
+            );
+            if (thisArea.intersects(otherArea)) {
+//                System.out.println("hit");
+                setPosition(
+                        getX() - getDirection().getX(),
+                        getY() - getDirection().getY()
+                );
+                if (obj instanceof Tank) {
+                    if (((Tank) obj).getDirection() == Direction.LEFT) {
+                        ((Tank) obj).setPosition(
+                                (((Tank) obj).getX() - ((Tank) obj).getDirection().getX()),
+                                ((Tank) obj).getY()
+                        );
+                        ((Tank) obj).stop();
+                    }
+                }
+                stop();
+            }
+        }
+    }
 
     public BulletPool getBulletPool() {
         return this.bulletPool;

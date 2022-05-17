@@ -99,6 +99,8 @@ public class Game extends JFrame {
             paintTank2(g);
 
             paintBush(g);
+
+            paintRectangle(g);
         }
 
         public void paintBrick(Graphics g) {
@@ -189,6 +191,13 @@ public class Game extends JFrame {
             }
         }
 
+        public void paintRectangle(Graphics g) {
+            g.setColor(Color.white);
+            for (WorldObj block : world.getWorldObjList()) {
+//                System.out.println("x: " + block.getX() + " y: " + block.getY());
+                g.drawRect(block.getX() * PIXEL_SIZE, block.getY() * PIXEL_SIZE, block.getWidth(), block.getHeight());
+            }
+        }
     }
 
     public static void main(String[] args) {
