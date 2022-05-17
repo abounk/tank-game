@@ -94,13 +94,11 @@ public class World {
     public void checkTankShot() {
         for (Tank tank : tanks) {
             for (Bullet bullet : tank.getBullets()) {
-                tank1.isHit(bullet);
-                tank2.isHit(bullet);
-                // if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
-                // System.out.println("HEEEETTT");
+                if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
+                    this.isOver = true;
+                }
             }
         }
-        // checkBreak();
     }
 
     public Tank getTank(int numTank) {
