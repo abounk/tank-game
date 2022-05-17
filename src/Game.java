@@ -16,6 +16,7 @@ public class Game extends JFrame {
     public boolean onePlayermode = false;
     public boolean twoPlayermode = false;
 
+
     public Game() {
         world = new World(30, 20);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -60,6 +61,7 @@ public class Game extends JFrame {
         remove(preGameUI);
         pack();
     }
+
 
 
     class WorldPanel extends JPanel {
@@ -110,6 +112,8 @@ public class Game extends JFrame {
 
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
+            g.setColor(Color.white);
+            // g.drawString("Player1 Score : " + "", 30, 30);
 
 
 
@@ -120,12 +124,20 @@ public class Game extends JFrame {
             turnTank1();
             paintTank1(g);
             if (twoPlayermode) {
+                // g.drawString("Player2 Score : " + "", 1030, 30);
                 paintBulletTank2(g);
                 turnTank2();
                 paintTank2(g);
             }
 
             paintBush(g);
+
+            if(world.getisOver()) {
+                JOptionPane.showMessageDialog(this,"Game ended!", "Message",
+                JOptionPane.WARNING_MESSAGE);
+                Game game = new Game();
+                game.start();
+            }
         }
 
         public void paintBrick(Graphics g) {
@@ -215,33 +227,20 @@ public class Game extends JFrame {
                 g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
             }
         }
-
-        // public void checkBrick(List<Brick> bricks) {
-        //     for (WorldObj brick: bricks) {
-        //         // System.out.println(brick.getisBreakable());
-        //         // if (!brick.getisBreakable()) {
-        //             // System.out.println(!block.getisBreakable());
-        //             // continue;
-        //         // }
-
-        //     }
-        // }
-
-
-
-
     }
 
     class PreGameUI extends JPanel {
         private JButton onoPlayer;
         private JButton twoPlayer;
-        // private JButton player1;
-        // private JButton player2;
 
         public PreGameUI() {
-            setLayout(new FlowLayout());
-            setSize(30, 20);
+            setLayout(null);
+            setPreferredSize(new Dimension(
+                world.getWidth() * 40,
+                world.getHeight() * 40));
             JLabel preGameLabel = new JLabel("Mode");
+            preGameLabel.setFont(new Font("Arial", Font.PLAIN, 50));
+            preGameLabel.setBounds(200,300,400,100);
             add(preGameLabel);
             pack();
             setButton();
@@ -253,7 +252,9 @@ public class Game extends JFrame {
         }
 
         private void onePlayerButton() {
-            onoPlayer = new JButton("1 Player");
+            onoPlayer = new JButton("Single-Player");
+            onoPlayer.setBounds(400,200,400,100);
+            onoPlayer.setFont(new Font("Arial", Font.PLAIN, 50));
             onoPlayer.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -262,7 +263,6 @@ public class Game extends JFrame {
                     onePlayermode = true;
                     deleteinitPreGame();
                     pack();
-                    // Game.this.requestFocus();
                     startGame();
                     
                 }
@@ -271,7 +271,10 @@ public class Game extends JFrame {
         }
 
         private void twoPlayerButton() {
-            twoPlayer = new JButton("2 Player");
+            twoPlayer = new JButton("Multi-Player");
+            twoPlayer.setBounds(400,400,400,100);
+            twoPlayer.setFont(new Font("Arial", Font.PLAIN, 50));
+            twoPlayer.setPreferredSize(new Dimension(400,100));
             twoPlayer.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
