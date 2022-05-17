@@ -25,20 +25,23 @@ public class KeyHandler extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == up) {
             tank.setDirection(Direction.UP);
+            currentKey = e.getKeyCode();
             tank.move();
         } else if (e.getKeyCode() == down) {
             tank.setDirection(Direction.DOWN);
+            currentKey = e.getKeyCode();
             tank.move();
         } else if (e.getKeyCode() == left) {
             tank.setDirection(Direction.LEFT);
+            currentKey = e.getKeyCode();
             tank.move();
         } else if (e.getKeyCode() == right) {
             tank.setDirection(Direction.RIGHT);
+            currentKey = e.getKeyCode();
             tank.move();
         } else if (e.getKeyCode() == shoot) {
             tank.shoot();
         }
-        currentKey = e.getKeyCode();
         }
 
     @Override

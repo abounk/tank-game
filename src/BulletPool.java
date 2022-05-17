@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BulletPool {
-    public static final int BULLET_SIZE = 3;
+    public static final int BULLET_SIZE = 1;
 
     private List<Bullet> bullets = new ArrayList<Bullet>();
 

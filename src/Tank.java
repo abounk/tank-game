@@ -34,20 +34,20 @@ public class Tank extends MovingObj{
 
         switch (this.getDirection()) {
             case UP:
-                x = this.getX() + (this.getWidth() / 3);
+                x = this.getX();
                 y = this.getY() + 1;
                 break;
             case DOWN:
-                x = this.getX() + (this.getWidth() / 3);
+                x = this.getX();
                 y = this.getY() - 1;
                 break;
             case LEFT:
                 x = this.getX() - 1;
-                y = this.getY() + (this.getHeight() / 3);
+                y = this.getY();
                 break;
             case RIGHT:
                 x = this.getX() + 1;
-                y = this.getY() + (this.getHeight() / 3);
+                y = this.getY();
                 break;
             default:
                 x = this.getX();
