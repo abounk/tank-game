@@ -17,7 +17,6 @@ public class Game extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         worldPanel.requestFocus();
         setTitle("Tank game");
-        setAlwaysOnTop(true);
         setResizable(false);
     }
 
