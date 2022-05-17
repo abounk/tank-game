@@ -80,26 +80,33 @@ public class Game extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
 
-            paintBrick(g);
-            paintSteel(g);
+            List<Brick> brickList = world.getBrickList();
+            List<Steel> steelList = world.getSteelList();
+            List<Bush> bushList = world.getBushList();
+
+            paintBrick(g, brickList);
+            paintSteel(g, steelList);
 
             paintBullet(g);
             turnTank();
             paintTank(g);
-            paintBush(g);
+            paintBush(g, bushList);
         }
 
-        public void paintBrick(Graphics g) {
-            List<Brick> brickList = world.getBrickList();
+        public void paintBrick(Graphics g, List<Brick> brickList) {
+            // List<Brick> brickList = world.getBrickList();
+            // this.brickList = world.getBrickList();
             for (Brick a : brickList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
                 g.drawImage(imageBrick, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
+            // checkBrick(brickList);
             }
         }
 
-        public void paintSteel(Graphics g) {
-            List<Steel> steelList = world.getSteelList();
+        public void paintSteel(Graphics g, List<Steel> steelList) {
+            // List<Steel> steelList = world.getSteelList();
+            // this.steelList = world.getSteelList();
             for (Steel a : steelList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
@@ -107,8 +114,8 @@ public class Game extends JFrame {
             }
         }
 
-        public void paintBush(Graphics g) {
-            List<Bush> bushList = world.getBushList();
+        public void paintBush(Graphics g, List<Bush> bushList) {
+            // List<Bush> bushList = world.getBushList();
             for (Bush a : bushList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
@@ -117,6 +124,9 @@ public class Game extends JFrame {
         }
 
         public void turnTank() {
+            // for (Brick brick : brickList) {
+
+            // }
             switch (world.getTank().getDirection()) {
                 case UP -> imgTank = new ImageIcon("img/greenTank_up.png").getImage();
                 case DOWN -> imgTank = new ImageIcon("img/greenTank_down.png").getImage();
@@ -150,6 +160,17 @@ public class Game extends JFrame {
                 g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
             }
         }
+
+        // public void checkBrick(List<Brick> bricks) {
+        //     for (WorldObj brick: bricks) {
+        //         // System.out.println(brick.getisBreakable());
+        //         // if (!brick.getisBreakable()) {
+        //             // System.out.println(!block.getisBreakable());
+        //             // continue;
+        //         // }
+
+        //     }
+        // }
 
     }
 

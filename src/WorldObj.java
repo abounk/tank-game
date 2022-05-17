@@ -7,6 +7,8 @@ public class WorldObj {
     private int width = Game.WorldPanel.PIXEL_SIZE;
     private int height = Game.WorldPanel.PIXEL_SIZE;
 
+    private boolean isBreakable = false;
+
 
     public WorldObj(int x, int y) {
         this.x = x;
@@ -53,5 +55,16 @@ public class WorldObj {
         this.y = y;
     }
 
+    public boolean getisBreakable() {
+        return isBreakable;
+    }
+
+    public void setBreakable() {
+        isBreakable = true;
+    }
+
+    // public boolean isHit(WorldObj other) {
+    //     return true;
+    // }
 
 }

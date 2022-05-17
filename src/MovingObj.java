@@ -44,6 +44,9 @@ public class MovingObj extends WorldObj{
             this.stop();
             return;
         }
+        // if (
+        //         x
+        // )
         this.setPosition(x, y);
 //        System.out.println("x: " + getX() + " y: " + getY());
     }

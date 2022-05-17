@@ -5,9 +5,12 @@ public class Tank extends MovingObj{
     private BulletPool bulletPool = new BulletPool();
     private List<Bullet> bullets = new ArrayList<Bullet>();
 
+    // private boolean isBreakable = true;
+
     public Tank(int x, int y) {
         super(x, y);
         this.setSize(2, 2);
+        // this.setBreakable();
     }
 
     @Override
@@ -80,4 +83,8 @@ public class Tank extends MovingObj{
             bulletPool.returnBullet(bullet);
         }
     }
+
+    // public boolean getisBreakable() {
+    //     return isBreakable;
+    // }
 }
