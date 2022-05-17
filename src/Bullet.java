@@ -7,6 +7,8 @@ public class Bullet extends MovingObj {
     private boolean isBlockHit = false;
     private boolean isTankHit = false;
 
+    private Tank owner;
+
     public Bullet () {
         super(-1, -1, SHELL_SPEED);
         this.setSize(1, 1);
@@ -51,5 +53,13 @@ public class Bullet extends MovingObj {
 
     public void cleanBullet() {
         isBlockHit = false;
+    }
+
+    public void setOwner(Tank tank) {
+        this.owner = tank;
+    }
+
+    public Tank getOwner() {
+        return this.owner;
     }
 }

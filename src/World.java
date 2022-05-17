@@ -13,6 +13,9 @@ public class World {
     private List<WorldObj> worldObjList;
     private List<WorldObj> toRemove;
 
+    private Tank tank1;
+    private Tank tank2;
+
     public World(int width, int height) {
         bulletPool = new BulletPool();
         bullets = new ArrayList<Bullet>();
@@ -26,8 +29,8 @@ public class World {
 
 //        x = 0, 1160
 //        y = 360
-        Tank tank1 = new Tank(0, 360);
-        Tank tank2 = new Tank(1160, 360);
+        tank1 = new Tank(0, 360);
+        tank2 = new Tank(1160, 360);
         tanks.add(tank1);
         tanks.add(tank2);
 
@@ -80,6 +83,18 @@ public class World {
             }
             for (WorldObj block : toRemove) {
                 worldObjList.remove(block);
+            }
+            checkTankShot();
+        }
+    }
+
+    public void checkTankShot() {
+        for (Tank tank : tanks) {
+            for (Bullet bullet : tank.getBullets()) {
+                tank1.isHit(bullet);
+                tank2.isHit(bullet);
+//                if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
+//                    System.out.println("HEEEETTT");
             }
         }
     }

@@ -24,13 +24,12 @@ public class Tank extends MovingObj{
         Bullet bullet;
         try {
             bullet = bulletPool.requestBullet();
+            bullet.setOwner(this);
         } catch (Error e) {
             return;
         }
 
-        int x = 0;
-        int y = 0;
-
+        int x, y;
         switch (this.getDirection()) {
             case UP:
                 x = this.getX();
@@ -53,19 +52,35 @@ public class Tank extends MovingObj{
                 y = this.getY();
                 break;
         }
-
         bullet.setPosition(x, y);
         bullet.setDirection(this.getDirection());
         bullet.move();
         bullets.add(bullet);
     }
 
-    public BulletPool getBulletPool() {
-        return this.bulletPool;
-    }
-
     public List<Bullet> getBullets() {
         return bullets;
+    }
+
+    public boolean isHit(Bullet bullet) {
+        Rectangle bulletArea = new Rectangle(
+                bullet.getX(),
+                bullet.getY(),
+                bullet.getWidth(),
+                bullet.getHeight()
+        );
+        Rectangle thisArea = new Rectangle(
+                getX(),
+                getY(),
+                getWidth(),
+                getHeight()
+        );
+        if (thisArea.intersects(bulletArea)) {
+            if (bullet.getOwner() != this) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void checkHit(List<WorldObj> blockList) {
@@ -87,18 +102,9 @@ public class Tank extends MovingObj{
             if (thisArea.intersects(otherArea)) {
 //                System.out.println("hit");
                 setPosition(
-                        getX() - getDirection().getX(),
-                        getY() - getDirection().getY()
+                        getX() - getDirection().getX() * getSpeed(),
+                        getY() - getDirection().getY() * getSpeed()
                 );
-                if (obj instanceof Tank) {
-                    if (((Tank) obj).getDirection() == Direction.LEFT) {
-                        ((Tank) obj).setPosition(
-                                (((Tank) obj).getX() - ((Tank) obj).getDirection().getX()),
-                                ((Tank) obj).getY()
-                        );
-                        ((Tank) obj).stop();
-                    }
-                }
                 stop();
             }
         }
