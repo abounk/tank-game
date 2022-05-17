@@ -96,27 +96,31 @@ public class World {
     }
 
     public boolean hitBrick(int x, int y) {
-        return bricksList.stream().anyMatch(brick -> brick.getX() == x && brick.getY() == y);
+        return bricksList.stream().anyMatch(brick -> brick.getX() == x &&
+            brick.getY() == y);
     }
 
     public boolean hitSteel(int x, int y) {
         return steelList.stream().anyMatch(steel -> steel.getX() == x && steel.getY() == y);
     }
 
-    public void checkBreak() {
-        // System.out.println("check");
-        for (Bullet bullet: tanks.get(0).getBullets()) {
-            // System.out.println("bullet");
-            if (hitBrick(bullet.getX(), bullet.getY())) {
-                System.out.println("hit");
-                brickNeedToRemove.add(bricksList.stream()
-                    .filter(brick -> brick.getX() == bullet.getX() && brick.getY() == bullet.getY()).findFirst().orElse(null));
-            }
-        }
-        for (Brick brick: brickNeedToRemove) {
-            System.out.println("Brick");
-            bricksList.remove(brick);
-        }
-    }
+    // public void checkBreak() {
+    //     // System.out.println("check");
+    //     for (Bullet bullet: tanks.get(0).getBullets()) {
+    //         for (Brick brick1: bricksList) {
+    //         // System.out.println("bullet");
+    //         // if (hitBrick(bullet.getX(), bullet.getY())) {
+    //             if (bullet.isHit(brick1)) {
+    //             System.out.println("hit");
+    //             brickNeedToRemove.add(bricksList.stream()
+    //                 .filter(brick -> brick.getX() == bullet.getX() && brick.getY() == bullet.getY()).findFirst().orElse(null));
+    //             }
+    //         }
+    //     }
+    //     for (Brick brick: brickNeedToRemove) {
+    //         System.out.println("Brick");
+    //         bricksList.remove(brick);
+    //     }
+    // }
 
 }
