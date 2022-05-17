@@ -9,8 +9,7 @@ public class Tank extends MovingObj{
 
     public Tank(int x, int y) {
         super(x, y);
-        this.setSize(2, 2);
-        // this.setBreakable();
+        this.setSize(1, 1);
     }
 
     @Override

@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,10 +8,10 @@ public class Map {
     
 
     public Map() {
-        initObstracle();
+        initObstacle();
     }
 
-    private void initObstracle() {
+    private void initObstacle() {
         addBrickToMap();
         addSteelToMap();
         addBushToMap();
