@@ -15,6 +15,8 @@ public class World {
     private List<Steel> steelList;
     private List<Bush> bushList;
 
+    private boolean isOver;
+
     private List<Brick> brickNeedToRemove;
 
     public World(int width, int height) {
@@ -27,6 +29,7 @@ public class World {
         this.bricksList = new ArrayList<Brick>();
         this.steelList = new ArrayList<Steel>();
         this.bushList = new ArrayList<Bush>();
+        this.isOver = false;
         // tank = new Tank(569, 622);
 
         this.brickNeedToRemove = new ArrayList<Brick>();
@@ -80,7 +83,7 @@ public class World {
         for (Tank tank : tanks) {
             tank.animate();
         }
-        checkBreak();
+        // checkBreak();
     }
 
     public Tank getTank(int numTank) {
@@ -104,23 +107,8 @@ public class World {
         return steelList.stream().anyMatch(steel -> steel.getX() == x && steel.getY() == y);
     }
 
-    // public void checkBreak() {
-    //     // System.out.println("check");
-    //     for (Bullet bullet: tanks.get(0).getBullets()) {
-    //         for (Brick brick1: bricksList) {
-    //         // System.out.println("bullet");
-    //         // if (hitBrick(bullet.getX(), bullet.getY())) {
-    //             if (bullet.isHit(brick1)) {
-    //             System.out.println("hit");
-    //             brickNeedToRemove.add(bricksList.stream()
-    //                 .filter(brick -> brick.getX() == bullet.getX() && brick.getY() == bullet.getY()).findFirst().orElse(null));
-    //             }
-    //         }
-    //     }
-    //     for (Brick brick: brickNeedToRemove) {
-    //         System.out.println("Brick");
-    //         bricksList.remove(brick);
-    //     }
-    // }
+    public boolean getisOver() {
+        return isOver;
+    }
 
 }

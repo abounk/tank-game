@@ -3,28 +3,35 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Game extends JFrame {
     private Thread gameThread;
     private WorldPanel worldPanel;
     private World world;
 
+    private PreGameUI preGameUI;
+    public boolean selectMode = false;
+    public boolean onePlayermode = false;
+    public boolean twoPlayermode = false;
+
     public Game() {
         world = new World(30, 20);
-        worldPanel = new WorldPanel();
-        add(worldPanel);
-        pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        worldPanel.requestFocus();
         setTitle("Tank game");
+        setLayout(new BorderLayout());
         setResizable(false);
     }
 
-    public void start() {
-        setVisible(true);
+    public void startGame() {
+        worldPanel = new WorldPanel();
+        add(worldPanel);
+        pack();
+        worldPanel.requestFocus();
         gameThread = new Thread() {
             public void run() {
-                while (true) {
+                while (!world.getisOver()) {
                     world.tick();
                     try {
                         sleep(1000 / 300);
@@ -38,12 +45,29 @@ public class Game extends JFrame {
         gameThread.start();
     }
 
+    public void start() {
+        setVisible(true);
+        initPreGame();
+    }
+
+    public void initPreGame() {
+        preGameUI = new PreGameUI();
+        add(preGameUI);
+        pack();
+    }
+
+    public void deleteinitPreGame() {
+        remove(preGameUI);
+        pack();
+    }
+
+
     class WorldPanel extends JPanel {
         public static final int PIXEL_SIZE = 40;
 
-        // private List<Brick> brickList;
-        // private List<Steel> steelList;
-        // private List<Bush> bushList;
+        private List<Brick> brickList;
+        private List<Steel> steelList;
+        private List<Bush> bushList;
 
         private Image imageBrick;
         private Image imageSteel;
@@ -87,38 +111,34 @@ public class Game extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, world.getWidth() * PIXEL_SIZE, world.getHeight() * PIXEL_SIZE);
 
-            List<Brick> brickList = world.getBrickList();
-            List<Steel> steelList = world.getSteelList();
-            List<Bush> bushList = world.getBushList();
 
-            paintBrick(g, brickList);
-            paintSteel(g, steelList);
+
+            paintBrick(g);
+            paintSteel(g);
 
             paintBulletTank1(g);
-            paintBulletTank2(g);
-
             turnTank1();
-            turnTank2();
             paintTank1(g);
-            paintTank2(g);
+            if (twoPlayermode) {
+                paintBulletTank2(g);
+                turnTank2();
+                paintTank2(g);
+            }
 
-            paintBush(g, bushList);
+            paintBush(g);
         }
 
-        public void paintBrick(Graphics g, List<Brick> brickList) {
-            // List<Brick> brickList = world.getBrickList();
-            // this.brickList = world.getBrickList();
+        public void paintBrick(Graphics g) {
+            List<Brick> brickList = world.getBrickList();
             for (Brick a : brickList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
                 g.drawImage(imageBrick, x, y, PIXEL_SIZE, PIXEL_SIZE, null, null);
-            // checkBrick(brickList);
             }
         }
 
-        public void paintSteel(Graphics g, List<Steel> steelList) {
-            // List<Steel> steelList = world.getSteelList();
-            // this.steelList = world.getSteelList();
+        public void paintSteel(Graphics g) {
+            List<Steel> steelList = world.getSteelList();
             for (Steel a : steelList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
@@ -126,8 +146,8 @@ public class Game extends JFrame {
             }
         }
 
-        public void paintBush(Graphics g, List<Bush> bushList) {
-            // List<Bush> bushList = world.getBushList();
+        public void paintBush(Graphics g) {
+            List<Bush> bushList = world.getBushList();
             for (Bush a : bushList) {
                 int x = a.getX() * PIXEL_SIZE;
                 int y = a.getY() * PIXEL_SIZE;
@@ -207,6 +227,64 @@ public class Game extends JFrame {
         //     }
         // }
 
+
+
+
+    }
+
+    class PreGameUI extends JPanel {
+        private JButton onoPlayer;
+        private JButton twoPlayer;
+        // private JButton player1;
+        // private JButton player2;
+
+        public PreGameUI() {
+            setLayout(new FlowLayout());
+            setSize(30, 20);
+            JLabel preGameLabel = new JLabel("Mode");
+            add(preGameLabel);
+            pack();
+            setButton();
+        }
+
+        private void setButton() {
+            onePlayerButton();
+            twoPlayerButton();
+        }
+
+        private void onePlayerButton() {
+            onoPlayer = new JButton("1 Player");
+            onoPlayer.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    selectMode = true;
+                    twoPlayer.setEnabled(false);
+                    onePlayermode = true;
+                    deleteinitPreGame();
+                    pack();
+                    // Game.this.requestFocus();
+                    startGame();
+                    
+                }
+            });
+            add(onoPlayer);
+        }
+
+        private void twoPlayerButton() {
+            twoPlayer = new JButton("2 Player");
+            twoPlayer.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    selectMode = true;
+                    onoPlayer.setEnabled(false);
+                    twoPlayermode = true;
+                    deleteinitPreGame();
+                    pack();
+                    startGame();
+                }
+            });
+            add(twoPlayer);
+        }
     }
 
     public static void main(String[] args) {

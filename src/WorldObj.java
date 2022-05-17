@@ -63,8 +63,4 @@ public class WorldObj {
         isBreakable = true;
     }
 
-    // public boolean isHit(WorldObj other) {
-    //     return true;
-    // }
-
 }
