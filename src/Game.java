@@ -69,7 +69,7 @@ public class Game extends JFrame {
                     KeyEvent.VK_S,
                     KeyEvent.VK_A,
                     KeyEvent.VK_D,
-                    KeyEvent.VK_SPACE));
+                    KeyEvent.VK_F));
 
             addKeyListener(new KeyHandler(
                     world.getTank(1),
@@ -77,7 +77,7 @@ public class Game extends JFrame {
                     KeyEvent.VK_K,
                     KeyEvent.VK_J,
                     KeyEvent.VK_L,
-                    KeyEvent.VK_P
+                    KeyEvent.VK_SEMICOLON
             ));
         }
 
