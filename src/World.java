@@ -17,6 +17,7 @@ public class World {
     private Tank tank2;
 
     private boolean isOver;
+    private boolean twoPlayermode = false;
 
     public World(int width, int height) {
         bulletPool = new BulletPool();
@@ -30,12 +31,12 @@ public class World {
         this.toRemove = new ArrayList<WorldObj>();
         this.isOver = false;
 
-        // x = 0, 1160
-        // y = 360
         tank1 = new Tank(0, 360);
-        tank2 = new Tank(1160, 360);
         tanks.add(tank1);
+
+        tank2 = new Tank(1160, 360);
         tanks.add(tank2);
+        
 
         addListObject();
     }
@@ -92,10 +93,12 @@ public class World {
     }
 
     public void checkTankShot() {
-        for (Tank tank : tanks) {
-            for (Bullet bullet : tank.getBullets()) {
-                if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
-                    this.isOver = true;
+        if (this.twoPlayermode) {
+            for (Tank tank : tanks) {
+                for (Bullet bullet : tank.getBullets()) {
+                    if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
+                        this.isOver = true;
+                    }
                 }
             }
         }
@@ -114,7 +117,11 @@ public class World {
     }
 
     public boolean getisOver() {
-        return isOver;
+        return this.isOver;
+    }
+
+    public void setGameMode2Player() {
+        twoPlayermode = true;
     }
 
 }

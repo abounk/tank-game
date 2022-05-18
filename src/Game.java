@@ -89,13 +89,15 @@ public class Game extends JFrame {
                     KeyEvent.VK_D,
                     KeyEvent.VK_F));
 
-            addKeyListener(new KeyHandler(
-                    world.getTank(1),
-                    KeyEvent.VK_I,
-                    KeyEvent.VK_K,
-                    KeyEvent.VK_J,
-                    KeyEvent.VK_L,
-                    KeyEvent.VK_SEMICOLON));
+            if (twoPlayermode) {
+                addKeyListener(new KeyHandler(
+                        world.getTank(1),
+                        KeyEvent.VK_I,
+                        KeyEvent.VK_K,
+                        KeyEvent.VK_J,
+                        KeyEvent.VK_L,
+                        KeyEvent.VK_SEMICOLON));
+            }
         }
 
         @Override
@@ -111,6 +113,7 @@ public class Game extends JFrame {
             turnTank1();
             paintTank1(g);
             if (twoPlayermode) {
+                world.setGameMode2Player();
                 // g.drawString("Player2 Score : " + "", 1030, 30);
                 paintBulletTank2(g);
                 turnTank2();
@@ -122,12 +125,10 @@ public class Game extends JFrame {
             if (world.getisOver()) {
                 JOptionPane.showMessageDialog(this, "Game ended!", "Message",
                         JOptionPane.WARNING_MESSAGE);
-                Game game = new Game();
-                game.start();
+                setVisible(false);
+                dispose();
             }
         }
-
-        // paintRectangle(g);
 
         public void paintBlock(Graphics g) {
             List<WorldObj> blockList = world.getWorldObjList();
