@@ -33,5 +33,5 @@ On multi player mode users have to fight with another user and who get hit first
 https://github.com/abounk/tank-game/releases/download/v1/tank-game.jar
 
 ## Tank Game Document
-**KU Mail Only** :
+**Google Doc** :
 https://docs.google.com/document/d/1Yr4L2ifBFpJ0g3vuCgM75v-UP_GqEHDU8O4xfMMZZmc/edit?usp=sharing
