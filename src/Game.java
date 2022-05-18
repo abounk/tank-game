@@ -12,7 +12,6 @@ public class Game extends JFrame {
     private World world;
 
     private MenuUI menuUI;
-//    private boolean twoPlayerMode = false;
 
     public Game() {
         world = new World(30, 20);
@@ -62,22 +61,18 @@ public class Game extends JFrame {
     class WorldPanel extends JPanel {
         public static final int PIXEL_SIZE = 40;
 
-        private Image imageBrick;
-        private Image imageSteel;
-        private Image imageBush;
+        private final Image imageBrick = new ImageIcon(getClass().getResource("res/brick.png")).getImage();
+        private final Image imageSteel = new ImageIcon(getClass().getResource("res/steel.png")).getImage();
+        private final Image imageBush = new ImageIcon(getClass().getResource("res/bush.png")).getImage();
 
         private Image imgTank;
-
         private Image imgBullet;
 
         WorldPanel() {
+
             setPreferredSize(new Dimension(
                     world.getWidth() * PIXEL_SIZE,
                     world.getHeight() * PIXEL_SIZE));
-
-            imageBrick = new ImageIcon("img/brick.png").getImage();
-            imageSteel = new ImageIcon("img/steel.png").getImage();
-            imageBush = new ImageIcon("img/bush.png").getImage();
 
             addKeyListener(new KeyHandler(
                     world.getTanks().get(0),
@@ -108,7 +103,6 @@ public class Game extends JFrame {
 
             paintBullet(g);
             paintTank(g);
-
             paintBlock(g);
 
             if (world.getIsOver()) {
@@ -137,17 +131,17 @@ public class Game extends JFrame {
             for (Tank tank : world.getTanks()) {
                 if (tank.getName() == "Player 1") {
                     switch (tank.getDirection()) {
-                        case UP -> imgTank = new ImageIcon("img/greenTank_up.png").getImage();
-                        case DOWN -> imgTank = new ImageIcon("img/greenTank_down.png").getImage();
-                        case LEFT -> imgTank = new ImageIcon("img/greenTank_left.png").getImage();
-                        case RIGHT -> imgTank = new ImageIcon("img/greenTank_right.png").getImage();
+                        case UP -> imgTank = new ImageIcon(getClass().getResource("res/greenTank_up.png")).getImage();
+                        case DOWN -> imgTank = new ImageIcon(getClass().getResource("res/greenTank_down.png")).getImage();
+                        case LEFT -> imgTank = new ImageIcon(getClass().getResource("res/greenTank_left.png")).getImage();
+                        case RIGHT -> imgTank = new ImageIcon(getClass().getResource("res/greenTank_right.png")).getImage();
                     }
                 } else {
                     switch (tank.getDirection()) {
-                        case UP -> imgTank = new ImageIcon("img/redTank_up.png").getImage();
-                        case DOWN -> imgTank = new ImageIcon("img/redTank_down.png").getImage();
-                        case LEFT -> imgTank = new ImageIcon("img/redTank_left.png").getImage();
-                        case RIGHT -> imgTank = new ImageIcon("img/redTank_right.png").getImage();
+                        case UP -> imgTank = new ImageIcon(getClass().getResource("res/redTank_up.png")).getImage();
+                        case DOWN -> imgTank = new ImageIcon(getClass().getResource("res/redTank_down.png")).getImage();
+                        case LEFT -> imgTank = new ImageIcon(getClass().getResource("res/redTank_left.png")).getImage();
+                        case RIGHT -> imgTank = new ImageIcon(getClass().getResource("res/redTank_right.png")).getImage();
                     }
                 }
                 int nx = tank.getX();
@@ -158,10 +152,10 @@ public class Game extends JFrame {
 
         public void turnBullet(Bullet bullet) {
             switch (bullet.getDirection()) {
-                case UP -> imgBullet = new ImageIcon("img/bullet_up.png").getImage();
-                case DOWN -> imgBullet = new ImageIcon("img/bullet_down.png").getImage();
-                case LEFT -> imgBullet = new ImageIcon("img/bullet_left.png").getImage();
-                case RIGHT -> imgBullet = new ImageIcon("img/bullet_right.png").getImage();
+                case UP -> imgBullet = new ImageIcon(getClass().getResource("res/bullet_up.png")).getImage();
+                case DOWN -> imgBullet = new ImageIcon(getClass().getResource("res/bullet_down.png")).getImage();
+                case LEFT -> imgBullet = new ImageIcon(getClass().getResource("res/bullet_left.png")).getImage();
+                case RIGHT -> imgBullet = new ImageIcon(getClass().getResource("res/bullet_right.png")).getImage();
             }
         }
 
@@ -178,8 +172,6 @@ public class Game extends JFrame {
     }
 
     class MenuUI extends JPanel {
-        private JButton SinglePlayerBtn;
-        private JButton MultiPlayerBtn;
 
         public MenuUI() {
             setLayout(null);
@@ -200,10 +192,10 @@ public class Game extends JFrame {
         }
 
         private void onePlayerButton() {
-            SinglePlayerBtn = new JButton("Single-Player");
-            SinglePlayerBtn.setBounds(400, 200, 400, 100);
-            SinglePlayerBtn.setFont(new Font("Arial", Font.PLAIN, 50));
-            SinglePlayerBtn.addActionListener(new ActionListener() {
+            JButton singlePlayerBtn = new JButton("Single-Player");
+            singlePlayerBtn.setBounds(400, 200, 400, 100);
+            singlePlayerBtn.setFont(new Font("Arial", Font.PLAIN, 50));
+            singlePlayerBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     world.setSinglePlayer();
@@ -213,15 +205,15 @@ public class Game extends JFrame {
 
                 }
             });
-            add(SinglePlayerBtn);
+            add(singlePlayerBtn);
         }
 
         private void twoPlayerButton() {
-            MultiPlayerBtn = new JButton("Multi-Player");
-            MultiPlayerBtn.setBounds(400, 400, 400, 100);
-            MultiPlayerBtn.setFont(new Font("Arial", Font.PLAIN, 50));
-            MultiPlayerBtn.setPreferredSize(new Dimension(400, 100));
-            MultiPlayerBtn.addActionListener(new ActionListener() {
+            JButton multiPlayerBtn = new JButton("Multi-Player");
+            multiPlayerBtn.setBounds(400, 400, 400, 100);
+            multiPlayerBtn.setFont(new Font("Arial", Font.PLAIN, 50));
+            multiPlayerBtn.setPreferredSize(new Dimension(400, 100));
+            multiPlayerBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 //                    SinglePlayerBtn.setEnabled(false);
@@ -231,7 +223,7 @@ public class Game extends JFrame {
                     startGame();
                 }
             });
-            add(MultiPlayerBtn);
+            add(multiPlayerBtn);
         }
     }
 
