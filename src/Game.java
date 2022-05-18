@@ -118,6 +118,10 @@ public class Game extends JFrame {
                 paintBulletTank2(g);
                 turnTank2();
                 paintTank2(g);
+            } else {
+                paintBulletTankAI(g);
+                turnTankAI();
+                paintTankAI(g);
             }
 
             paintBlock(g);
@@ -125,8 +129,7 @@ public class Game extends JFrame {
             if (world.getisOver()) {
                 JOptionPane.showMessageDialog(this, "Game ended!", "Message",
                         JOptionPane.WARNING_MESSAGE);
-                setVisible(false);
-                dispose();
+                System.exit(0);
             }
         }
 
@@ -163,6 +166,15 @@ public class Game extends JFrame {
             }
         }
 
+        public void turnTankAI() {
+            switch (world.getTank(2).getDirection()) {
+                case UP -> imgTank2 = new ImageIcon("img/redTank_up.png").getImage();
+                case DOWN -> imgTank2 = new ImageIcon("img/redTank_down.png").getImage();
+                case LEFT -> imgTank2 = new ImageIcon("img/redTank_left.png").getImage();
+                case RIGHT -> imgTank2 = new ImageIcon("img/redTank_right.png").getImage();
+            }
+        }
+
         public void turnBullet(Bullet bullet) {
             switch (bullet.getDirection()) {
                 case UP -> imgBullet = new ImageIcon("img/bullet_up.png").getImage();
@@ -188,6 +200,14 @@ public class Game extends JFrame {
             g.drawImage(imgTank2, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
         }
 
+        public void paintTankAI(Graphics g) {
+            Tank tank = world.getTank(2);
+            int nx = tank.getX();
+            int ny = tank.getY();
+            // System.out.println("x: " + nx + " y: " + ny);
+            g.drawImage(imgTank2, nx, ny, tank.getWidth(), tank.getHeight(), null, null);
+        }
+
         public void paintBulletTank1(Graphics g) {
             for (Bullet bullet : world.getTank(0).getBullets()) {
                 turnBullet(bullet);
@@ -206,11 +226,12 @@ public class Game extends JFrame {
             }
         }
 
-        public void paintRectangle(Graphics g) {
-            g.setColor(Color.white);
-            for (WorldObj block : world.getWorldObjList()) {
-                // System.out.println("x: " + block.getX() + " y: " + block.getY());
-                g.drawRect(block.getX() * PIXEL_SIZE, block.getY() * PIXEL_SIZE, block.getWidth(), block.getHeight());
+        public void paintBulletTankAI(Graphics g) {
+            for (Bullet bullet : world.getTank(2).getBullets()) {
+                turnBullet(bullet);
+                int bx = bullet.getX();
+                int by = bullet.getY();
+                g.drawImage(imgBullet, bx, by, bullet.getWidth(), bullet.getHeight(), null, null);
             }
         }
     }

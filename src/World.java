@@ -15,6 +15,7 @@ public class World {
 
     private Tank tank1;
     private Tank tank2;
+    private TankAI tankAI;
 
     private boolean isOver;
     private boolean twoPlayermode = false;
@@ -36,7 +37,9 @@ public class World {
 
         tank2 = new Tank(1160, 360);
         tanks.add(tank2);
-        
+
+        tankAI = new TankAI(1160, 360);
+        tanks.add(tankAI);
 
         addListObject();
     }
@@ -97,6 +100,14 @@ public class World {
             for (Tank tank : tanks) {
                 for (Bullet bullet : tank.getBullets()) {
                     if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
+                        this.isOver = true;
+                    }
+                }
+            }
+        } else {
+            for (Tank tank : tanks) {
+                for (Bullet bullet : tank.getBullets()) {
+                    if (tank1.isHit(bullet) || tankAI.isHit(bullet)) {
                         this.isOver = true;
                     }
                 }
