@@ -6,8 +6,6 @@ public class Tank extends MovingObj {
     private BulletPool bulletPool = new BulletPool();
     private List<Bullet> bullets = new ArrayList<Bullet>();
 
-    // private boolean isBreakable = true;
-
     public Tank(int x, int y) {
         super(x, y);
         this.setSize(1, 1);
