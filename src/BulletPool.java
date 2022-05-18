@@ -29,4 +29,8 @@ public class BulletPool {
     public boolean getIsReloading() {
         return isReloading;
     }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
 }

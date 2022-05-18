@@ -1,10 +1,10 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TankAI extends Tank{
-    private boolean changeDirection = false;
+    private boolean changeDirection = true;
 
     public TankAI(int x, int y) {
-        super(x, y);
+        super(x, y, "AI");
         Thread AIThread = new Thread() {
             @Override
             public void run () {
@@ -33,7 +33,6 @@ public class TankAI extends Tank{
             bullet.animate();
         }
         cleanUpBullets();
-        move();
         if (changeDirection) {
             int randomNum = ThreadLocalRandom.current().nextInt(1, 5);
             switch (randomNum) {
@@ -52,6 +51,7 @@ public class TankAI extends Tank{
             }
             changeDirection = false;
             shoot();
+            move();
         }
     }
 }

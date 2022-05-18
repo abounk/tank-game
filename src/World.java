@@ -4,7 +4,6 @@ import java.util.List;
 public class World {
     private int width;
     private int height;
-    private List<Tank> tanks = new ArrayList<Tank>();
 
     private BulletPool bulletPool;
     private List<Bullet> bullets;
@@ -13,12 +12,13 @@ public class World {
     private List<WorldObj> worldObjList;
     private List<WorldObj> toRemove;
 
+    private List<Tank> tanks = new ArrayList<Tank>();
     private Tank tank1;
     private Tank tank2;
     private TankAI tankAI;
 
     private boolean isOver;
-    private boolean twoPlayermode = false;
+    private Boolean isMultiplayer = false;
 
     public World(int width, int height) {
         bulletPool = new BulletPool();
@@ -32,14 +32,12 @@ public class World {
         this.toRemove = new ArrayList<WorldObj>();
         this.isOver = false;
 
-        tank1 = new Tank(0, 360);
+        tank1 = new Tank(0, 360, "Player 1");
         tanks.add(tank1);
 
-        tank2 = new Tank(1160, 360);
-        tanks.add(tank2);
+        tank2 = new Tank(1160, 360, "Player 2");
 
         tankAI = new TankAI(1160, 360);
-        tanks.add(tankAI);
 
         addListObject();
     }
@@ -48,6 +46,14 @@ public class World {
         addBrick();
         addSteel();
         addBush();
+    }
+
+    private void addBulletList() {
+        for (Tank tank : tanks) {
+            for (Bullet bullet : tank.getBulletPool().getBullets()) {
+                bullets.add(bullet);
+            }
+        }
     }
 
     private void addBrick() {
@@ -80,6 +86,9 @@ public class World {
 
     public void tick() {
         for (Tank tank : tanks) {
+            if (!tank.isAlive()) {
+                isOver = true;
+            }
             tank.animate();
             tank.checkHit(worldObjList);
             for (Bullet bullet : tank.getBullets()) {
@@ -96,27 +105,15 @@ public class World {
     }
 
     public void checkTankShot() {
-        if (this.twoPlayermode) {
+        for (Bullet bullet : bullets) {
             for (Tank tank : tanks) {
-                for (Bullet bullet : tank.getBullets()) {
-                    if (tank1.isHit(bullet) || tank2.isHit(bullet)) {
-                        this.isOver = true;
-                    }
-                }
-            }
-        } else {
-            for (Tank tank : tanks) {
-                for (Bullet bullet : tank.getBullets()) {
-                    if (tank1.isHit(bullet) || tankAI.isHit(bullet)) {
-                        this.isOver = true;
-                    }
-                }
+                tank.isHit(bullet);
             }
         }
     }
 
-    public Tank getTank(int numTank) {
-        return this.tanks.get(numTank);
+    public List<Tank> getTanks() {
+        return this.tanks;
     }
 
     public int getWidth() {
@@ -127,12 +124,23 @@ public class World {
         return this.height;
     }
 
-    public boolean getisOver() {
+    public boolean getIsOver() {
         return this.isOver;
     }
 
-    public void setGameMode2Player() {
-        twoPlayermode = true;
+    public void setMultiplayer() {
+        isMultiplayer = true;
+        tanks.add(tank2);
+        addBulletList();
+    }
+
+    public void setSinglePlayer() {
+        tanks.add(tankAI);
+        addBulletList();
+    }
+
+    public boolean getIsMultiplayer() {
+        return  isMultiplayer;
     }
 
 }

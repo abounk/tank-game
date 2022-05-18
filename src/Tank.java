@@ -6,9 +6,13 @@ public class Tank extends MovingObj {
     private BulletPool bulletPool = new BulletPool();
     private List<Bullet> bullets = new ArrayList<Bullet>();
 
-    public Tank(int x, int y) {
+    private String name;
+    private boolean isAlive = true;
+
+    public Tank(int x, int y, String name) {
         super(x, y);
         this.setSize(1, 1);
+        this.name = name;
     }
 
     @Override
@@ -62,7 +66,7 @@ public class Tank extends MovingObj {
         return bullets;
     }
 
-    public boolean isHit(Bullet bullet) {
+    public void isHit(Bullet bullet) {
         Rectangle bulletArea = new Rectangle(
                 bullet.getX(),
                 bullet.getY(),
@@ -75,10 +79,9 @@ public class Tank extends MovingObj {
                 getHeight());
         if (thisArea.intersects(bulletArea)) {
             if (bullet.getOwner() != this) {
-                return true;
+                isAlive = false;
             }
         }
-        return false;
     }
 
     public void checkHit(List<WorldObj> blockList) {
@@ -118,5 +121,17 @@ public class Tank extends MovingObj {
             bulletPool.returnBullet(bullet);
             bullets.remove(bullet);
         }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public BulletPool getBulletPool() {
+        return bulletPool;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
     }
 }
