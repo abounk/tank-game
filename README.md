@@ -14,9 +14,19 @@ On single player mode user has to fight with a bot and who get hit first lost a 
 
 On multi player mode users have to fight with another user and who get hit first lost a game.      
        
+ **Player1 Control**     
+`Move UP` :  `W`    
+`Move DOWN` :  `S`     
+`Move LEFT` :  `A`     
+`Move RIGHT` :  `D`     
+`Shoot` :  `F`
+
+       
 **Player2 Control**     
 `Move UP` :  `I`    
 `Move DOWN` :  `K`     
 `Move LEFT` :  `J`     
 `Move RIGHT` :  `L`     
 `Shoot` :  `;`
+
+## Download the game
