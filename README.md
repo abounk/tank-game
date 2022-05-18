@@ -30,3 +30,4 @@ On multi player mode users have to fight with another user and who get hit first
 `Shoot` :  `;`
 
 ## Download the game
+https://github.com/abounk/tank-game/releases/download/v1/tank-game.jar
