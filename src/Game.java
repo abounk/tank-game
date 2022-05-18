@@ -178,10 +178,14 @@ public class Game extends JFrame {
             setPreferredSize(new Dimension(
                     world.getWidth() * 40,
                     world.getHeight() * 40));
-            JLabel preGameLabel = new JLabel("Mode");
+            JLabel preGameLabel = new JLabel("Tank Game");
             preGameLabel.setFont(new Font("Arial", Font.PLAIN, 50));
-            preGameLabel.setBounds(200, 300, 400, 100);
+            preGameLabel.setBounds(475, 50, 400, 100);
+            JLabel preGameLabel2 = new JLabel("Select Game Mode");
+            preGameLabel2.setFont(new Font("Arial", Font.PLAIN, 50));
+            preGameLabel2.setBounds(400, 150, 450, 100);
             add(preGameLabel);
+            add(preGameLabel2);
             pack();
             setButton();
         }
@@ -193,7 +197,7 @@ public class Game extends JFrame {
 
         private void onePlayerButton() {
             JButton singlePlayerBtn = new JButton("Single-Player");
-            singlePlayerBtn.setBounds(400, 200, 400, 100);
+            singlePlayerBtn.setBounds(400, 300, 400, 100);
             singlePlayerBtn.setFont(new Font("Arial", Font.PLAIN, 50));
             singlePlayerBtn.addActionListener(new ActionListener() {
                 @Override
@@ -210,7 +214,7 @@ public class Game extends JFrame {
 
         private void twoPlayerButton() {
             JButton multiPlayerBtn = new JButton("Multi-Player");
-            multiPlayerBtn.setBounds(400, 400, 400, 100);
+            multiPlayerBtn.setBounds(400, 500, 400, 100);
             multiPlayerBtn.setFont(new Font("Arial", Font.PLAIN, 50));
             multiPlayerBtn.setPreferredSize(new Dimension(400, 100));
             multiPlayerBtn.addActionListener(new ActionListener() {
