@@ -117,12 +117,8 @@ public class Tank extends MovingObj {
             }
         }
         for (Bullet bullet : toRemove) {
-            bullets.remove(bullet);
             bulletPool.returnBullet(bullet);
+            bullets.remove(bullet);
         }
     }
-
-    // public boolean getisBreakable() {
-    // return isBreakable;
-    // }
 }
