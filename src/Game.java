@@ -56,7 +56,7 @@ public class Game extends JFrame {
         pack();
     }
 
-    public void deleteinitPreGame() {
+    public void deleteInitPreGame() {
         remove(preGameUI);
         pack();
     }
@@ -77,9 +77,9 @@ public class Game extends JFrame {
                     world.getWidth() * PIXEL_SIZE,
                     world.getHeight() * PIXEL_SIZE));
 
-            imageBrick = new ImageIcon("imgs/brick.png").getImage();
-            imageSteel = new ImageIcon("imgs/steel.png").getImage();
-            imageBush = new ImageIcon("imgs/bush2.png").getImage();
+            imageBrick = new ImageIcon("img/brick.png").getImage();
+            imageSteel = new ImageIcon("img/steel.png").getImage();
+            imageBush = new ImageIcon("img/bush.png").getImage();
 
             addKeyListener(new KeyHandler(
                     world.getTank(0),
@@ -247,7 +247,7 @@ public class Game extends JFrame {
                     selectMode = true;
                     twoPlayer.setEnabled(false);
                     onePlayermode = true;
-                    deleteinitPreGame();
+                    deleteInitPreGame();
                     pack();
                     startGame();
 
@@ -267,7 +267,7 @@ public class Game extends JFrame {
                     selectMode = true;
                     onoPlayer.setEnabled(false);
                     twoPlayermode = true;
-                    deleteinitPreGame();
+                    deleteInitPreGame();
                     pack();
                     startGame();
                 }

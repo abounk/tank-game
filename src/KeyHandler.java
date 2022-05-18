@@ -49,8 +49,7 @@ public class KeyHandler extends KeyAdapter {
         if ((e.getKeyCode() == up && currentKey == e.getKeyCode())
                 || (e.getKeyCode() == down && currentKey == e.getKeyCode())
                 || (e.getKeyCode() == left && currentKey == e.getKeyCode())
-                || (e.getKeyCode() == right && currentKey == e.getKeyCode())
-                || (e.getKeyCode() == shoot && currentKey == e.getKeyCode())) {
+                || (e.getKeyCode() == right && currentKey == e.getKeyCode())) {
             tank.stop();
         }
     }
